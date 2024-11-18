@@ -1,0 +1,18 @@
+author:
+  max_length: 30
+book:
+  name:
+    max_length: 100
+  min_in_stock: 0
+comment:
+  max_length: 100
+image:
+  max_size: 5
+  allow_type: "image/jpeg, image/gif, image/png"
+username:
+  max_length: 20
+password:
+  min_length: 8
+email:
+  format: "\\A[\\w+\\-.]+@[a-z\\d\\-.]+\\.[a-z]+\\z"
+  maxLength: 256
