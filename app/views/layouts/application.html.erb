@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsTutorial</title>
+    <title><%= full_title yield :title %> </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "layouts/header" %>
+
+    <% flash.each do |msg_color, msg| %>
+      <div class="flex items-center justify-center">
+        <div class="bg-<%= msg_color %>-100 border-t-4 border-<%= msg_color %>-500 rounded-b text-<%= msg_color %>-900 px-4 py-3 shadow-md mt-16 w-11/12" role="alert">
+          <p class="text-sm"><%= msg %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="container mx-auto my-16 px-5">
+      <%= yield %>
+    </div>
   </body>
 </html>

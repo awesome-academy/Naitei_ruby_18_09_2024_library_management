@@ -1,0 +1,24 @@
+<%= form_with url: "/", method: :get, local: true, class: "flex-grow px-4" do |f| %>
+  <div class="relative w-1/2 max-w-md mx-auto flex items-center space-x-2">
+    <div class="relative">
+      <%= f.select :search_type,
+          search_type_options,
+          {},
+          class: "inline-block w-auto min-w-36 border border-gray-300 rounded-md py-2 px-3 text-sm focus:outline-none focus:ring-blue-500" %>
+    </div>
+
+    <div class="relative flex-grow flex items-center">
+      <%= f.text_field :query,
+          placeholder: t("header.search.placeholder"),
+          class: "w-80 pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <span class="absolute inset-y-0 left-3 flex items-center text-gray-500">
+        <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </span>
+    </div>
+
+    <%= f.submit t("header.search.btn"),
+        class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none" %>
+  </div>
+<% end %>
