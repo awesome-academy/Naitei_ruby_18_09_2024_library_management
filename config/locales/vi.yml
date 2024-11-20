@@ -1,3 +1,22 @@
 vi:
+  app_name: "VLIB"
+  header:
+    search:
+      dropdown:
+        all: "Tất cả"
+        name: "Tên sách"
+        author: "Tác giả"
+        publisher: "Nhà xuất bản"
+      btn: "Tìm kiếm"
+      placeholder: "Tìm..."
+  view:
+    profile:
+      title: "Trang cá nhân"
+    settings:
+      title: "Cài đặt"
+    login:
+      title: "Đăng nhập"
+  text:
+    logout: "Đăng xuất"
   error:
     less_than_a_book: "Phải yêu cầu ít nhất một quyển sách!"

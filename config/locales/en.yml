@@ -1,3 +1,23 @@
 en:
+  app_name: "VLIB"
+  header:
+    search:
+      dropdown:
+        all: "All"
+        name: "Name"
+        author: "Author"
+        publisher: "Publisher"
+      btn: "Search"
+      placeholder: "Search..."
+  view:
+    profile:
+      title: "Profile"
+    settings:
+      title: "Settings"
+    login:
+      title: "Login"
+  text:
+    logout: "Log out"
   error:
     less_than_a_book: "A request must contain at least a book!"
+

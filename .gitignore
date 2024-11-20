@@ -8,8 +8,7 @@
 /InstalledFiles
 /log/
 /pkg/
-/spec/reports/
-/spec/examples.txt
+/spec/
 /test/tmp/
 /test/version_tmp/
 /tmp/
@@ -65,3 +64,9 @@ config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
 config/settings/
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/bin/
+/app/assets/builds
+/Procfile.dev
