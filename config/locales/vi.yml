@@ -16,7 +16,27 @@ vi:
       title: "Cài đặt"
     login:
       title: "Đăng nhập"
+    signup:
+      title: "Đăng Ký"
+      name:
+        label: "Tên"
+        placeholder: "Nhập tên"
+      email:
+        label: "Email"
+        placeholder: "Nhập email"
+      phone:
+        label: "Số điện thoại"
+        placeholder: "Nhập số điện thoại"
+      password:
+        label: "Mật khẩu"
+        placeholder: "Nhập mật khẩu"
+      confirmation:
+        label: "Xác nhận mật khẩu"
+        placeholder: "Xác nhận mật khẩu"
+      create: "Tạo tài khoản"
   text:
     logout: "Đăng xuất"
+    errors: "Lỗi:"
   error:
     less_than_a_book: "Phải yêu cầu ít nhất một quyển sách!"
+    not_logged_in: "Bạn chưa đăng nhập!"
