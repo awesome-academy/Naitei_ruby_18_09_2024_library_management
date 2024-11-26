@@ -16,8 +16,27 @@ en:
       title: "Settings"
     login:
       title: "Login"
+    signup:
+      title: "Sign Up"
+      name:
+        label: "Name"
+        placeholder: "Your name"
+      email:
+        label: "Email"
+        placeholder: "Your email"
+      phone:
+        label: "Phone"
+        placeholder: "Your phone"
+      password:
+        label: "Password"
+        placeholder: "Your password"
+      confirmation:
+        label: "Password Confirmation"
+        placeholder: "Confirm your password"
+      create: "Create account"
   text:
     logout: "Log out"
+    errors: "Errors:"
   error:
     less_than_a_book: "A request must contain at least a book!"
-
+    not_logged_in: "Please login first!"

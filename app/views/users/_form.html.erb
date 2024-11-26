@@ -1,0 +1,20 @@
+<%= form_for @user, html: {class: "space-y-3"}, data: {turbo: false} do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+
+  <%= f.label :name, t("view.signup.name.label"), class: "text-gray-800 text-sm mb-2 block" %>
+  <%= f.text_field :name, placeholder: t("view.signup.name.placeholder"), class: "text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" %>
+
+  <%= f.label :email, t("view.signup.email.label"), class: "text-gray-800 text-sm mb-2 block" %>
+  <%= f.email_field :email, placeholder: t("view.signup.email.placeholder"), class: "text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" %>
+
+  <%= f.label :phone, t("view.signup.phone.label"), class: "text-gray-800 text-sm mb-2 block" %>
+  <%= f.telephone_field :phone, placeholder: t("view.signup.phone.placeholder"), class: "text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" %>
+
+  <%= f.label :password, t("view.signup.password.label"), class: "text-gray-800 text-sm mb-2 block" %>
+  <%= f.password_field :password, placeholder: t("view.signup.password.placeholder"), class: "text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" %>
+
+  <%= f.label :password_confirmation, t("view.signup.confirmation.label"), class: "text-gray-800 text-sm mb-2 block" %>
+  <%= f.password_field :password_confirmation, placeholder: t("view.signup.confirmation.placeholder"), class: "text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" %>
+
+  <%= f.submit t("view.signup.create"), class: "w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" %>
+<% end %>

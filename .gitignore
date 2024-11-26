@@ -70,3 +70,4 @@ config/settings/
 /bin/
 /app/assets/builds
 /Procfile.dev
+/public/assets/
