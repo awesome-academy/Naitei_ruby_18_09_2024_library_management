@@ -40,3 +40,5 @@ en:
   error:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
+  success:
+    signup: "Sign up successfully!"
