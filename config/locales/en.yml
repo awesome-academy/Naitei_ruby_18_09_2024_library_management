@@ -34,6 +34,19 @@ en:
         label: "Password Confirmation"
         placeholder: "Confirm your password"
       create: "Create account"
+    login:
+      title: "Login"
+      email:
+        label: "Email"
+        placeholder: "Your email"
+      password:
+        label: "Password"
+        placeholder: "Your password"
+      remember_me: "Remember me"
+      forgot_pass: "Forgot your password?"
+      submit_btn: "Login"
+      dont_have_account: "Don't have an account? Register"
+      sign_up_here: "here"
   text:
     logout: "Log out"
     errors: "Errors:"
