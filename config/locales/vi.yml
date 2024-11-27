@@ -34,6 +34,19 @@ vi:
         label: "Xác nhận mật khẩu"
         placeholder: "Xác nhận mật khẩu"
       create: "Tạo tài khoản"
+    login:
+      title: "Đăng nhập"
+      email:
+        label: "Email"
+        placeholder: "Nhập email"
+      password:
+        label: "Mật khẩu"
+        placeholder: "Nhập mật khẩu"
+      remember_me: "Duy trì đăng nhập"
+      forgot_pass: "Quên mật khẩu?"
+      submit_btn: "Đăng nhập"
+      dont_have_account: "Chưa có tài khoản? Đăng ký"
+      sign_up_here: "tại đây"
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"
