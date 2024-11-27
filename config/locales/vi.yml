@@ -40,3 +40,5 @@ vi:
   error:
     less_than_a_book: "Phải yêu cầu ít nhất một quyển sách!"
     not_logged_in: "Bạn chưa đăng nhập!"
+  success:
+    signup: "Đăng ký thành công!"
