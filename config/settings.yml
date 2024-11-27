@@ -4,6 +4,7 @@ book:
   name:
     max_length: 100
   min_in_stock: 0
+  default_cover: "DefaultCover.png"
 comment:
   max_length: 100
 image:
@@ -20,3 +21,10 @@ phone_length: 10
 default_avatar:
   link: "DefaultAvatar.png"
   alt: "Profile"
+VN_flag:
+  link: "VN_flag.png"
+  alt: "vi"
+EN_flag:
+  link: "EN_flag.png"
+  alt: "en"
+default_pagination: 10

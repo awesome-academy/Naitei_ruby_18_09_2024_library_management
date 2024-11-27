@@ -12,18 +12,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex flex-col bg-gray-100 min-h-screen">
     <%= render "layouts/header" %>
+
     <% flash.each do |msg_color, msg| %>
       <div class="flex items-center justify-center">
-        <div class="bg-<%= msg_color %>-100 border-t-4 border-<%= msg_color %>-500 rounded-b text-<%= msg_color %>-900 px-4 py-3 shadow-md mt-16 w-full" role="alert">
+        <div class="bg-<%= msg_color %>-100 border-t-4 border-<%= msg_color %>-500 rounded-b text-<%= msg_color %>-900 px-6 py-3 shadow-md w-full" role="alert">
           <p class="text-sm"><%= msg %></p>
         </div>
       </div>
     <% end %>
 
-    <div class="container mx-auto px-5 <%= "mt-16" unless flash.any? %>">
-      <%= yield %>
+    <div class="flex flex-col flex-grow px-5 mt-4">
+      <div class="flex flex-col flex-grow justify-between bg-white rounded-lg shadow-lg px-6 pt-6 pb-3 w-full overflow-auto mx-auto mb-4">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

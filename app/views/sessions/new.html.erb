@@ -6,13 +6,13 @@
       <%= f.label :email, t("view.login.email.label"), class: "text-gray-800 text-sm mb-2 block" %>
       <div class="relative flex items-center">
         <%= f.email_field :email, required: true, placeholder: t("view.login.email.placeholder"), class: "w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 mb-2 rounded-md outline-blue-600" %>
-        <%= render "shared/icon/user_icon", icon_class: "w-4 h-4 absolute right-4" %>
+        <%= render "shared/icon/user", icon_class: "w-4 h-4 absolute right-4" %>
       </div>
 
       <%= f.label :password, t("view.login.password.label"), class: "text-gray-800 text-sm mb-2 block" %>
       <div class="relative flex items-center">
         <%= f.password_field :password, required: true, placeholder: t("view.login.password.placeholder"), class: "w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" %>
-        <%= render "shared/icon/eye_icon", icon_class: "w-4 h-4 absolute right-4 cursor-pointer", id: "password_toggle" %>
+        <%= render "shared/icon/eye", icon_class: "w-4 h-4 absolute right-4 cursor-pointer", id: "password_toggle" %>
       </div>
 
       <div class="flex flex-wrap items-center justify-between gap-4 my-3">

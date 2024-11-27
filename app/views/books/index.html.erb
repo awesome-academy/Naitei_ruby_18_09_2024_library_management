@@ -1,0 +1,40 @@
+<% provide :title, t("view.book.title") %>
+<div class="mx-auto w-full">
+  <div class="flex align-center justify-between mb-4">
+    <h1 class="text-2xl font-semibold"><%= t "view.book.title" %></h1>
+    <% if current_user&.is_admin? %>
+      <div class="flex justify-end">
+        <%= link_to t("view.book.new"), new_book_path, class: "bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg shadow">
+    <table class="min-w-full table-fixed">
+      <thead class="bg-gray-100">
+        <tr class="text-center">
+          <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.book.table.id" %></th>
+          <th class="px-4 py-2 text-sm font-medium"><%= t "view.book.table.name" %></th>
+          <th class="px-4 py-2 text-sm font-medium w-1/5"><%= t "view.book.table.cover" %></th>
+          <th class="px-4 py-2 text-sm font-medium w-1/4"><%= t "view.book.table.author" %></th>
+          <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.book.table.in_stock" %></th>
+          <% if logged_in? %>
+            <th class="px-4 py-2 text-sm font-medium w-1/10"><%= t "view.book.table.action" %></th>
+           <% else %>
+            <th class="px-4 py-2 text-sm font-medium w-1/10 hidden"></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% if @books.any? %>
+          <%= render partial: "book", collection: @books, as: :book %>
+        <% else %>
+            <tr>
+              <td colspan="6" class="text-center text-gray-500 py-4"><%= t "view.book.no_record_found" %></td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

@@ -1,0 +1,20 @@
+<tr class="text-center text-sm text-gray-600">
+  <td class="px-4 py-1"><%= link_to get_index(book_counter), book, class: "text-blue-400 hover:text-blue-200 cursor-pointer" %></td>
+  <td class="px-4 py-1"><%= book.name %></td>
+  <td class="px-4 py-1">
+    <%= image_tag book_cover(book), class: "w-10 h-10 object-cover block mx-auto" %>
+  </td>
+  <td class="px-4 py-1"><%= book.author.name %></td>
+  <td class="px-4 py-1"><%= book.in_stock %></td>
+  <% if logged_in? %>
+    <td class="px-4 py-1">
+      <div class="flex items-center justify-center space-x-4 h-full">
+        <div><%= render "shared/icon/add", icon_class: "w-6 h-6 my-1 text-blue-500 cursor-pointer hover:opacity-70" %></div>
+        <div><%= render "shared/icon/heart", icon_class: "w-6 h-6 my-1 text-stone-500 fill-none cursor-pointer hover:opacity-70" %></div>
+        <% if current_user&.is_admin? %>
+          <div><%= render "shared/icon/trash", icon_class: "h-6 w-6 my-1 text-red-500 cursor-pointer hover:opacity-70" %></div>
+        <% end %>
+      </div>
+    </td>
+  <% end %>
+</tr>
