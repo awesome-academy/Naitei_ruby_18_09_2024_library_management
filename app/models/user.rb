@@ -57,6 +57,13 @@ class User < ApplicationRecord
     update_columns activated: true, activated_at: Time.zone.now
   end
 
+  def authenticate token
+    digest = password_digest
+    return false unless digest
+
+    BCrypt::Password.new(digest).is_password? token
+  end
+
   private
 
   def downcase_email

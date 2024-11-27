@@ -53,5 +53,7 @@ en:
   error:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
+    wrong_credentials: "Invalid email or password!"
   success:
     signup: "Sign up successfully!"
+    login: "Login successfully!"
