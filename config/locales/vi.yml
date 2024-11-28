@@ -53,5 +53,7 @@ vi:
   error:
     less_than_a_book: "Phải yêu cầu ít nhất một quyển sách!"
     not_logged_in: "Bạn chưa đăng nhập!"
+    wrong_credentials: "Email hoặc mật khẩu không đúng!"
   success:
-    signup: "Đăng ký thành công!"
+    signup: "Sign up successfully!"
+    login: "Đăng nhập thành công!"

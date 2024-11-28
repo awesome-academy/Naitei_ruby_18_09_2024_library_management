@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
+      @user.activate
       flash[:emerald] = t "success.signup"
       redirect_to root_path, status: :see_other
     else
