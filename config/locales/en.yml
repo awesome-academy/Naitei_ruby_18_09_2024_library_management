@@ -47,6 +47,17 @@ en:
       submit_btn: "Login"
       dont_have_account: "Don't have an account? Register"
       sign_up_here: "here"
+    book:
+      title: "Book List"
+      new: "+ New book"
+      table:
+        id: "ID"
+        name: "Name"
+        cover: "Cover"
+        author: "Author"
+        in_stock: "In stock"
+        action: "Action"
+      no_record_found: "No book found. Please add some books."
   text:
     logout: "Log out"
     errors: "Errors:"

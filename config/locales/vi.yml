@@ -47,6 +47,17 @@ vi:
       submit_btn: "Đăng nhập"
       dont_have_account: "Chưa có tài khoản? Đăng ký"
       sign_up_here: "tại đây"
+    book:
+      title: "Danh sách sách"
+      new: "+ Thêm sách mới"
+      table:
+        id: "ID"
+        name: "Tiêu đề"
+        cover: "Ảnh bìa"
+        author: "Tác giả"
+        in_stock: "Số lượng"
+        action: "Hành động"
+      no_record_found: "Không có sách. Hãy thêm sách mới."
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"

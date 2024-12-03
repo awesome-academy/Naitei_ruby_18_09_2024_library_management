@@ -21,9 +21,17 @@ class Book < ApplicationRecord
             length: {maximum: Settings.book.name.max_length}
   validates :in_stock,
             presence: true,
-            length: {minium: Settings.book.min_in_stock}
+            numericality: {only_integer: true,
+                           greater_than_or_equal_to: Settings.book.min_in_stock}
   validates :cover,
             content_type: {in: allow_image_type},
-            size: {less_than: Settings.image.maxSize.megabytes},
-            allow_nil: true
+            size: {less_than: Settings.image.max_size.megabytes},
+            allow_nil: true,
+            if: :cover_attached?
+
+  private
+
+  def cover_attached?
+    cover.attached?
+  end
 end

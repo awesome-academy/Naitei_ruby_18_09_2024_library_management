@@ -8,3 +8,17 @@ document.addEventListener("turbo:load", function() {
     });
   }
 });
+
+window.setLocale = function setLocale(locale) {
+  const currentUrl = new URL(window.location.href);
+  const pathSegments = currentUrl.pathname.split("/").filter(segment => segment);
+
+  if (["vi", "en"].includes(pathSegments[0])) {
+    pathSegments[0] = locale;
+  } else {
+    pathSegments.unshift(locale);
+  }
+
+  currentUrl.pathname = "/" + pathSegments.join("/");
+  window.location.href = currentUrl.toString();
+}

@@ -1,4 +1,5 @@
-<header class="fixed top-0 left-0 w-full bg-white shadow-md flex items-center px-10 py-2 h-16 mb-16">
+<header class="top-0 left-0 w-full bg-white shadow-md flex items-center pr-10 py-2 h-16">
+  <%= render "layouts/locale_selector" %>
   <%= render "layouts/logo" %>
   <%= render "layouts/search" %>
   <%= render partial: logged_in? ? "layouts/user_buttons" : "layouts/login_button" %>
