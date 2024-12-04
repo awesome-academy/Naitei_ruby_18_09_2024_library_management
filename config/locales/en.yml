@@ -58,6 +58,7 @@ en:
         in_stock: "In stock"
         action: "Action"
       no_record_found: "No book found. Please add some books."
+      added_to_cart: "%{book_name} has been added to your cart."
     cart:
       title: "My Cart"
       borrow_date: "Borrow date"
@@ -71,6 +72,10 @@ en:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
     wrong_credentials: "Invalid email or password!"
+    already_in_cart: "%{book_name} has already been added to your cart!"
+    cant_delete_selected_book: "Server encountered some error!"
+    not_your_selected_book: "You can't remove others' book from cart!"
+    cant_add_to_cart: "Couldn't add %{book_name} to cart!"
   success:
     signup: "Sign up successfully!"
     login: "Login successfully!"
