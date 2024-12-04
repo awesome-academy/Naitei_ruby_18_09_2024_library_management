@@ -10,7 +10,11 @@
     <td class="px-4 py-1 font-medium w-2/12">
       <div class="flex items-center justify-center space-x-4 h-full">
         <div><%= render "shared/icon/heart", icon_class: "w-6 h-6 my-1 text-stone-500 fill-none cursor-pointer hover:opacity-70" %></div>
-        <div><%= render "shared/icon/trash", icon_class: "h-6 w-6 my-1 text-red-500 cursor-pointer hover:opacity-70" %></div>
+        <div>
+          <%= link_to selected_book_path(book.id), data: {turbo_method: :delete}, class: "text-red-500" do%>
+            <%= render "shared/icon/trash", icon_class: "h-6 w-6 my-1 text-red-500 cursor-pointer hover:opacity-70" %>
+          <% end %>
+        </div>
       </div>
     </td>
   <% end %>
