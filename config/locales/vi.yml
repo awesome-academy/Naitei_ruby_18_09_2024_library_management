@@ -58,6 +58,12 @@ vi:
         in_stock: "Số lượng"
         action: "Hành động"
       no_record_found: "Không có sách. Hãy thêm sách mới."
+    cart:
+      title: "Giỏ Hàng"
+      borrow_date: "Ngày mượn"
+      return_date: "Ngày trả"
+      submit: "Tạo yêu cầu"
+      no_record_found: "Bạn chưa thêm cuốn sách nào vào giỏ hàng."
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"

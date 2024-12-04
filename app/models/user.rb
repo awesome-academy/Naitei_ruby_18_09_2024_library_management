@@ -8,7 +8,9 @@ class User < ApplicationRecord
   has_many :processed_requests, class_name: Request.name,
             foreign_key: :processer_id, dependent: :nullify
   has_many :selected_books, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :carted_books, through: :selected_books, source: :book
+  has_many :favorite_books, dependent: :destroy
+  has_many :favorited_books, through: :favorite_books, source: :book
 
   has_secure_password
 

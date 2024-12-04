@@ -1,0 +1,54 @@
+<% provide :title, t("view.cart.title") %>
+<%= form_with url: requests_path, method: :post, class: "flex flex-col flex-grow justify-between" do %>
+  <div class="flex-grow">
+    <div class="mx-auto w-full">
+      <div class="flex align-center justify-between mb-4">
+        <h1 class="text-2xl font-semibold"><%= t "view.cart.title" %></h1>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full table-fixed">
+          <thead class="bg-gray-100">
+            <tr class="text-center">
+              <th class="px-4 py-2 text-sm w-1/12"></th>
+              <th class="px-4 py-2 text-sm font-medium w-3/12"><%= t "view.book.table.name" %></th>
+              <th class="px-4 py-2 text-sm font-medium w-2/12"><%= t "view.book.table.cover" %></th>
+              <th class="px-4 py-2 text-sm font-medium w-3/12"><%= t "view.book.table.author" %></th>
+              <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.book.table.in_stock" %></th>
+              <th class="px-4 py-2 text-sm font-medium w-2/12"><%= t "view.book.table.action" %></th>
+            </tr>
+          </thead>
+        </table>
+
+        <div class="overflow-y-auto max-h-[540px]">
+          <table class="min-w-full table-fixed">
+            <tbody class="divide-y divide-gray-200">
+              <% if current_user.selected_books.any? %>
+                <%= render partial: "selected_book", collection: @selected_books, as: :book %>
+              <% else %>
+                <tr>
+                  <td colspan="7" class="text-center text-gray-500 py-4"><%= t "view.cart.no_record_found" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mt-4">
+        <div class="flex items-center space-x-2">
+          <%= label_tag :start_date, t("view.cart.borrow_date"), class: "text-left" %>
+          <%= date_field_tag :start_date, nil, class: "border rounded-lg p-2" %>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <%= label_tag :end_date, t("view.cart.return_date"), class: "text-right" %>
+          <%= date_field_tag :end_date, nil, class: "border rounded-lg p-2" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-auto flex justify-end">
+    <%= submit_tag t("view.cart.submit"), class: "bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" %>
+  </div>
+<% end %>

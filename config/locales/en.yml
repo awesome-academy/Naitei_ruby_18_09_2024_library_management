@@ -58,6 +58,12 @@ en:
         in_stock: "In stock"
         action: "Action"
       no_record_found: "No book found. Please add some books."
+    cart:
+      title: "My Cart"
+      borrow_date: "Borrow date"
+      return_date: "Return date"
+      submit: "Make request"
+      no_record_found: "You haven't selected any books yet."
   text:
     logout: "Log out"
     errors: "Errors:"

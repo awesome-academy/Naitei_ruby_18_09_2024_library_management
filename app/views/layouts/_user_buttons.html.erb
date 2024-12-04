@@ -2,14 +2,14 @@
   <%= link_to "/", class: "relative hover:opacity-70" do %>
     <%= render "shared/icon/heart", icon_class: "h-6 w-6 text-red-500 fill-red-500" %>
     <span class="absolute top-0.5 right-0.5 bg-gray-50 text-red-500 text-[8px] font-bold rounded-full px-1">
-      0
+      <%= current_user.favorited_books.count %>
     </span>
   <% end %>
 
-  <%= link_to "/", class: "relative hover:opacity-70" do %>
+  <%= link_to cart_path, class: "relative hover:opacity-70" do %>
     <%= render "shared/icon/book", icon_class: "h-6 w-6 text-zinc-400" %>
     <span class="absolute top-0.5 right-0.5 bg-gray-50 text-red-500 text-[8px] font-bold rounded-full px-1">
-      10
+      <%= current_user.selected_books.count %>
     </span>
   <% end %>
 
