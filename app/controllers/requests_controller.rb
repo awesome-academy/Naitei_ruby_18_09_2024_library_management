@@ -4,7 +4,11 @@ class RequestsController < ApplicationController
   before_action :logged_in?
 
   def new
-    @selected_books = current_user.selected_books.map(&:book)
+    @selected_books = current_user.selected_books
+                                  .newest
+                                  .includes(book: [:author,
+                                                   {cover_attachment: :blob}])
+                                  .map(&:book)
   end
 
   def create; end
