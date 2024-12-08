@@ -1,0 +1,7 @@
+<%= form_for @selected_book, data: {turbo: false} do |f| %>
+  <%= f.hidden_field :book_id, value: book_id %>
+
+  <button type="submit" class="w-6 h-6 my-1 text-blue-500 cursor-pointer hover:opacity-70">
+    <%= render "shared/icon/add", icon_class: "w-6 h-6" %>
+  </button>
+<% end %>

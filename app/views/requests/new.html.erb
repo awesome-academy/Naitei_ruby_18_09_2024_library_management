@@ -1,5 +1,5 @@
 <% provide :title, t("view.cart.title") %>
-<%= form_with url: requests_path, method: :post, class: "flex flex-col flex-grow justify-between" do %>
+<%= form_with url: requests_path, method: :post, data: {turbo: false}, class: "flex flex-col flex-grow justify-between" do %>
   <div class="flex-grow">
     <div class="mx-auto w-full">
       <div class="flex align-center justify-between mb-4">
@@ -38,17 +38,17 @@
       <div class="flex items-center justify-between mt-4">
         <div class="flex items-center space-x-2">
           <%= label_tag :start_date, t("view.cart.borrow_date"), class: "text-left" %>
-          <%= date_field_tag :start_date, nil, class: "border rounded-lg p-2" %>
+          <%= date_field_tag "request[start_date]", nil, class: "border rounded-lg p-2" %>
         </div>
 
         <div class="flex items-center space-x-2">
           <%= label_tag :end_date, t("view.cart.return_date"), class: "text-right" %>
-          <%= date_field_tag :end_date, nil, class: "border rounded-lg p-2" %>
+          <%= date_field_tag "request[end_date]", nil, class: "border rounded-lg p-2" %>
         </div>
       </div>
     </div>
   </div>
-  <div class="mt-auto flex justify-end">
+  <div class="mt-4 flex justify-end">
     <%= submit_tag t("view.cart.submit"), class: "bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" %>
   </div>
 <% end %>

@@ -9,7 +9,7 @@
   <% if logged_in? %>
     <td class="px-4 py-1">
       <div class="flex items-center justify-center space-x-4 h-full">
-        <div><%= render "shared/icon/add", icon_class: "w-6 h-6 my-1 text-blue-500 cursor-pointer hover:opacity-70" %></div>
+        <div><%= render "shared/selected_book_form", book_id: book.id %></div>
         <div><%= render "shared/icon/heart", icon_class: "w-6 h-6 my-1 text-stone-500 fill-none cursor-pointer hover:opacity-70" %></div>
         <% if current_user&.is_admin? %>
           <div><%= render "shared/icon/trash", icon_class: "h-6 w-6 my-1 text-red-500 cursor-pointer hover:opacity-70" %></div>
