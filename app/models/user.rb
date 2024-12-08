@@ -3,7 +3,7 @@ class User < ApplicationRecord
                         :password, :password_confirmation].freeze
 
   has_many :comments, dependent: :destroy
-  has_many :borrowed_requests, class_name: Request.name,
+  has_many :borrow_requests, class_name: Request.name,
             foreign_key: :borrower_id, dependent: :destroy
   has_many :processed_requests, class_name: Request.name,
             foreign_key: :processer_id, dependent: :nullify
