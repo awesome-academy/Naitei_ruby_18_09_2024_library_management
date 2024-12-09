@@ -28,3 +28,6 @@ EN_flag:
   link: "EN_flag.png"
   alt: "en"
 default_pagination: 10
+request:
+  allow_amount: 5
+  max_borrow_days: 30

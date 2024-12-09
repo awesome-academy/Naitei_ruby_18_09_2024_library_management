@@ -115,11 +115,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_024135) do
     t.date "start_date"
     t.date "end_date"
     t.bigint "borrower_id"
-    t.bigint "processer_id"
+    t.bigint "processor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["borrower_id"], name: "fk_rails_dc20e303b9"
-    t.index ["processer_id"], name: "fk_rails_3a69899067"
+    t.index ["processor_id"], name: "fk_rails_8a8a6ee66b"
   end
 
   create_table "selected_books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -158,5 +158,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_024135) do
   add_foreign_key "comments", "books"
   add_foreign_key "comments", "users"
   add_foreign_key "requests", "users", column: "borrower_id"
-  add_foreign_key "requests", "users", column: "processer_id"
+  add_foreign_key "requests", "users", column: "processor_id"
 end
