@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :users
     resources :books
     resources :requests
+    resources :selected_books, only: %i(create destroy)
   end
 end
