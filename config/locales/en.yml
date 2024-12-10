@@ -76,6 +76,12 @@ en:
     cant_delete_selected_book: "Server encountered some error!"
     not_your_selected_book: "You can't remove others' book from cart!"
     cant_add_to_cart: "Couldn't add %{book_name} to cart!"
+    cant_borrow_more_than: "Can't borrow more than %{allow_amount} books"
+    has_unreturned_books: "Return borrowing books before making new request!"
+    past_start_date: "Start date must not be in the past!"
+    borrow_more_than_a_month: "You can't borrow books more than a month!"
+    start_date_after_end_date: "Start date must be before end date!"
   success:
     signup: "Sign up successfully!"
     login: "Login successfully!"
+    request_created: "Request created! Contact the librarian for approvement."

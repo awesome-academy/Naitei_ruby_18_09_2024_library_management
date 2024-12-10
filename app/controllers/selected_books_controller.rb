@@ -2,7 +2,7 @@ class SelectedBooksController < ApplicationController
   include ApplicationHelper
 
   before_action :logged_in?
-  before_action :set_selected_book, :correct_user, only: :destroy
+  before_action :correct_user, only: :destroy
 
   def create
     @selected_book = current_user.selected_books.build selected_book_params
@@ -35,14 +35,11 @@ class SelectedBooksController < ApplicationController
   end
 
   def correct_user
+    @selected_book = current_user.selected_books.find_by(book_id: params[:id])
     return if @selected_book
 
     flash[:red] = t "error.not_your_book"
     redirect_to request.referer || root_url
-  end
-
-  def set_selected_book
-    @selected_book = current_user.selected_books.find_by(book_id: params[:id])
   end
 
   def handle_sucess
