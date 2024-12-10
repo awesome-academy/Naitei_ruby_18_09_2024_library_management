@@ -1,0 +1,14 @@
+<% provide :title, title %>
+<div class="mx-auto w-full">
+  <div class="flex align-center justify-between mb-4">
+    <h1 class="text-2xl font-semibold"><%= title %></h1>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg shadow">
+    <table class="min-w-full table-fixed">
+      <%= render current_user.is_admin? ? "admin_list" : "user_list" %>
+    </table>
+  </div>
+</div>
+<%= render "decline_form" %>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

@@ -13,7 +13,8 @@ module.exports = {
     "text-red-900", "text-emerald-900", "text-cyan-900",
     "text-xs", "font-bold",
     "list-disc",
-    "ml-3", "w-10", "mb-4"
+    "ml-3", "mb-4",
+    "w-10", "w-1/10", "w-1/5"
   ],
   theme: {
     extend: {

@@ -65,6 +65,31 @@ en:
       return_date: "Return date"
       submit: "Make request"
       no_record_found: "You haven't selected any books yet."
+    requests_list:
+      user_requests: "User requests"
+      my_requests: "My requests"
+      table:
+        request_id: "Request ID"
+        request_no: "No."
+        borrower: "Borrower"
+        books: "Books"
+        start_date: "Start date"
+        end_date: "End date"
+        status: "Status"
+        action: "Action"
+        note: "Note"
+        tooltip:
+          approve: "Approve"
+          decline: "Decline"
+          complete: "Complete"
+          overdue: "Overdue"
+      no_requests_found: "There hasn't been any requests yet."
+      not_yet_made_any_request: "You haven't made any requests yet."
+      decline_form:
+        note: "Decline reason:"
+        placeholder: "Enter the decline reason"
+        submit_btn: "Save"
+        cancel: "Cancel"
   text:
     logout: "Log out"
     errors: "Errors:"

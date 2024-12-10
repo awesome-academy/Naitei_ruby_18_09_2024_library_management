@@ -65,6 +65,31 @@ vi:
       return_date: "Ngày trả"
       submit: "Tạo yêu cầu"
       no_record_found: "Bạn chưa thêm cuốn sách nào vào giỏ hàng."
+    requests_list:
+      user_requests: "Danh sách yêu cầu"
+      my_requests: "Yêu cầu của tôi"
+      table:
+        request_id: "ID"
+        request_no: "No."
+        borrower: "Người mượn"
+        books: "Sách"
+        start_date: "Ngày mượn"
+        end_date: "Ngày trả"
+        status: "Trạng thái"
+        action: "Hành động"
+        note: "Ghi chú"
+        tooltip:
+          approve: "Chấp nhận"
+          decline: "Từ chối"
+          complete: "Hoàn thành"
+          overdue: "Quá hạn"
+      no_requests_found: "Không có yêu cầu mượn sách nào."
+      not_yet_made_any_request: "Bạn chưa tạo yêu cầu nào."
+      decline_form:
+        note: "Lý do từ chối:"
+        placeholder: "Nhập lý do"
+        submit_btn: "Lưu"
+        cancel: "Hủy"
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"

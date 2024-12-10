@@ -7,6 +7,7 @@ class Request < ApplicationRecord
   has_many :books, through: :requested_books
 
   scope :pending_or_overdue, ->{where(status: [:pending, :overdue])}
+  scope :newest, ->{order created_at: :desc}
 
   enum status: {pending: 0, declined: 1, borrowing: 2, returned: 3, overdue: 4}
 

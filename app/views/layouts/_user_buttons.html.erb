@@ -17,9 +17,10 @@
     <button class="flex items-center space-x-2 focus:outline-none" id="profile_picture">
       <%= image_tag Settings.default_avatar.link, alt: Settings.default_avatar.alt, class: "h-8 w-8 rounded-full" %>
     </button>
-    <div class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg hidden group-hover:block" id="drop_down">
-      <%= link_to t("view.profile.title"), "/", class: "block px-4 py-2 hover:bg-gray-100" %>
+    <div class="absolute right-0 mt-2 w-48 z-50 bg-white border rounded-md shadow-lg hidden group-hover:block" id="drop_down">
+      <%= link_to t("view.profile.title"), current_user, class: "block px-4 py-2 hover:bg-gray-100" %>
       <%= link_to t("view.settings.title"), "/", class: "block px-4 py-2 hover:bg-gray-100" %>
+      <%= link_to title, requests_path, class: "block px-4 py-2 hover:bg-gray-100" %>
       <%= link_to t("text.logout"), logout_path, data: {turbo_method: :delete}, class: "block px-4 py-2 hover:bg-gray-100" %>
     </div>
   </div>

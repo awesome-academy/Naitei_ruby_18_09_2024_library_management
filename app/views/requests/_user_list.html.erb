@@ -1,0 +1,19 @@
+<thead class="bg-gray-100">
+  <tr class="text-center">
+    <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.requests_list.table.request_no" %></th>
+    <th class="px-4 py-2 text-sm font-medium"><%= t "view.requests_list.table.books" %></th>
+    <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.requests_list.table.start_date" %></th>
+    <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.requests_list.table.end_date" %></th>
+    <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.requests_list.table.status" %></th>
+    <th class="px-4 py-2 text-sm font-medium w-2/12"><%= t "view.requests_list.table.note" %></th>
+  </tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+  <% if @requests.any? %>
+    <%= render partial: "request", collection: @requests, as: :request %>
+  <% else %>
+      <tr>
+        <td colspan="5" class="text-center text-gray-500 py-4"><%= t "view.requests_list.not_yet_made_any_request" %></td>
+      </tr>
+  <% end %>
+</tbody>
