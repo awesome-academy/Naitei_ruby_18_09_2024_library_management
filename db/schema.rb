@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_25_024135) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_10_091134) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -118,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_024135) do
     t.bigint "processor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "note"
     t.index ["borrower_id"], name: "fk_rails_dc20e303b9"
     t.index ["processor_id"], name: "fk_rails_8a8a6ee66b"
   end

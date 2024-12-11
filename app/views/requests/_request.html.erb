@@ -1,0 +1,70 @@
+<tr class="text-center text-sm text-gray-600">
+  <% if current_user.is_admin? %>
+    <td class="px-4 py-3"><%= request.id %></td>
+    <td class="px-4 py-3"><%= link_to request.borrower.name, request.borrower, class: "text-blue-400 hover:text-blue-300 cursor-pointer" %></td>
+    <td class="px-4 py-3"><%= requested_book_names request %></td>
+    <td class="px-4 py-3"><%= request.start_date %></td>
+    <td class="px-4 py-3"><%= request.end_date %></td>
+    <td class="px-4 py-3"><div class="px-2 py-1 rounded-lg text-white <%= status_class request.status %>"><%= request.status %></div></td>
+    <td class="px-4 py-3">
+      <div class="flex items-center justify-center space-x-4 h-full">
+        <% if request.pending? %>
+          <div class="relative group inline-block">
+            <%= render "shared/icon/check", icon_class: "w-6 h-6 my-1 text-blue-500 fill-none cursor-pointer hover:opacity-70" %>
+            <div class="absolute bg-slate-500 px-4 py-3 max-w-xs w-max right-full -translate-x-1/2 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+              <%= t "view.requests_list.table.tooltip.approve" %>
+            </div>
+          </div>
+          <div class="relative group inline-block">
+            <%= render "shared/icon/x", icon_id: "decline_btn", icon_class: "w-6 h-6 my-1 text-red-500 fill-none cursor-pointer hover:opacity-70" %>
+            <div class="absolute bg-slate-500 px-4 py-3 max-w-xs w-max right-full -translate-x-1/2 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+              <%= t "view.requests_list.table.tooltip.decline" %>
+            </div>
+          </div>
+        <% elsif request.borrowing? %>
+          <div class="relative group inline-block">
+            <%= render "shared/icon/check", icon_class: "w-6 h-6 my-1 text-green-500 fill-none cursor-pointer hover:opacity-70" %>
+            <div class="absolute bg-slate-500 px-4 py-3 max-w-xs w-max right-full -translate-x-1/2 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+              <%= t "view.requests_list.table.tooltip.complete" %>
+            </div>
+          </div>
+          <div class="relative group inline-block">
+            <%= render "shared/icon/clock", icon_class: "w-6 h-6 my-1 text-red-500 fill-none cursor-pointer hover:opacity-70" %>
+            <div class="absolute bg-slate-500 px-4 py-3 max-w-xs w-max right-full -translate-x-1/2 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+              <%= t "view.requests_list.table.tooltip.overdue" %>
+            </div>
+          </div>
+        <% elsif request.declined? %>
+          <div class="relative group inline-block">
+            <%= render "shared/icon/message", icon_class: "w-6 h-6 my-1 text-gray-500 fill-none cursor-pointer hover:opacity-70" %>
+            <div class="absolute bg-slate-500 px-4 py-3 max-w-xs w-max right-full -translate-x-0 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+              <%= request.note %>
+            </div>
+          </div>
+        <% else %>
+          -
+        <% end %>
+      </div>
+    </td>
+  <% else %>
+    <td class="px-4 py-3"><%= calculate_index request_counter %></td>
+    <td class="px-4 py-3"><%= requested_book_names request %></td>
+    <td class="px-4 py-3"><%= request.start_date %></td>
+    <td class="px-4 py-3"><%= request.end_date %></td>
+    <td class="px-4 py-3"><div class="px-2 py-1 rounded-lg text-white <%= status_class request.status %>"><%= request.status %></div></td>
+    <td class="px-4 py-3">
+      <div class="flex items-center justify-center space-x-4 h-full">
+        <% if request.declined? %>
+          <div class="relative group inline-block">
+            <%= render "shared/icon/message", icon_class: "w-6 h-6 my-1 text-gray-500 fill-none cursor-pointer hover:opacity-70" %>
+            <div class="absolute bg-slate-500 px-4 py-3 max-w-xs w-max right-full -translate-x-0 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+              <%= request.note %>
+            </div>
+          </div>
+        <% else %>
+          -
+        <% end %>
+      </div>
+    </td>
+  <% end %>
+</tr>

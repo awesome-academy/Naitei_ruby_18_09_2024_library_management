@@ -5,6 +5,17 @@ class RequestsController < ApplicationController
   before_action :has_unreturned_books?, only: :create
   before_action :load_selected_books, only: :new
 
+  def index
+    @pagy, @requests = if current_user.is_admin?
+                         pagy Request.newest.includes(:books, :borrower),
+                              limit: Settings.default_pagination
+                       else
+                         pagy current_user.borrow_requests
+                                          .newest.includes(:books),
+                              limit: Settings.default_pagination
+                       end
+  end
+
   def new
     @request = Request.new
   end
