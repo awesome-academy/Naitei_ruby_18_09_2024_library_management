@@ -1,5 +1,10 @@
 class Request < ApplicationRecord
   PERMITTED_PARAMS = [:start_date, :end_date, {selected_books: []}].freeze
+  ALLOWED_ACTIONS = {
+    "pending" => %i(borrowing declined),
+    "borrowing" => %i(returned overdue),
+    "overdue" => %i(returned)
+  }.freeze
 
   belongs_to :borrower, class_name: User.name
   belongs_to :processor, class_name: User.name, optional: true
@@ -8,15 +13,19 @@ class Request < ApplicationRecord
 
   scope :pending_or_overdue, ->{where(status: [:pending, :overdue])}
   scope :newest, ->{order created_at: :desc}
+  scope :not_declined_or_returned, ->{where.not(status: [:declined, :returned])}
+  scope :by_status, ->{order status: :asc, created_at: :desc}
 
-  enum status: {pending: 0, declined: 1, borrowing: 2, returned: 3, overdue: 4}
+  enum status: {pending: 0, borrowing: 1, overdue: 2, declined: 3, returned: 4}
 
-  validates :status, inclusion: {in: statuses.keys}, presence: true
+  validates :status, inclusion: {in: statuses.keys}, presence: true, on: :handle
+  validates :note, presence: true, on: :handle, if: :want_to_declined?
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :start_date_must_not_be_in_the_past,
            :borrow_time_must_be_less_than_a_month,
-           :start_date_must_be_before_end_date
+           :start_date_must_be_before_end_date,
+           on: :create
 
   private
 
@@ -40,5 +49,9 @@ class Request < ApplicationRecord
               (end_date - start_date).to_i.positive?
 
     errors.add(:base, I18n.t("error.start_date_after_end_date"))
+  end
+
+  def want_to_decline?
+    status == "declined"
   end
 end

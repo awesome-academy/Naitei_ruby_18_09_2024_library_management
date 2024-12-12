@@ -24,11 +24,19 @@ module RequestsHelper
 
   def title
     t(
-      if current_user.is_admin?
+      if all_requests_accessible?
         "view.requests_list.user_requests"
       else
         "view.requests_list.my_requests"
       end
     )
+  end
+
+  def all_requests_accessible?
+    request.path.include?("all") && current_user.is_admin?
+  end
+
+  def reason reason
+    reason || "-"
   end
 end
