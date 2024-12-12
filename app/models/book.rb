@@ -9,6 +9,8 @@ class Book < ApplicationRecord
   has_many :requested_books, dependent: :destroy
   has_many :favorite_books, dependent: :destroy
 
+  scope :with_zero_in_stock, ->{where(in_stock: 0)}
+
   has_one_attached :cover do |attachable|
     attachable.variant :display,
                        resize_to_limit: Settings.image.max_size

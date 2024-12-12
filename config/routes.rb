@@ -8,7 +8,14 @@ Rails.application.routes.draw do
     get     "/cart",   to: "requests#new"
     resources :users
     resources :books
-    resources :requests
+    resources :requests do
+      member do
+        post :handle
+      end
+      collection do
+        get :all, to: "requests#index"
+      end
+    end
     resources :selected_books, only: %i(create destroy)
   end
 end
