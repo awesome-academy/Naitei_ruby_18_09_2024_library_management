@@ -16,7 +16,7 @@ class SelectedBooksController < ApplicationController
     rescue StandardError
       flash[:red] = t "error.already_in_cart",
                       book_name: @selected_book.book.name
-      redirect_to root_path, status: :see_other
+      redirect_to request.referer || root_url, status: :see_other
     end
   end
 
@@ -45,7 +45,7 @@ class SelectedBooksController < ApplicationController
   def handle_sucess
     flash[:emerald] = t "view.book.added_to_cart",
                         book_name: @selected_book.book.name
-    redirect_to root_url
+    redirect_to request.referer || root_url
   end
 
   def handle_fail

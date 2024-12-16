@@ -50,6 +50,9 @@ vi:
     book:
       title: "Danh sách sách"
       new: "+ Thêm sách mới"
+      author: "Tác giả"
+      genre: "Thể loại"
+      publisher: "Nhà xuất bản"
       table:
         id: "ID"
         name: "Tiêu đề"
@@ -92,9 +95,17 @@ vi:
         placeholder: "Nhập lý do"
         submit_btn: "Lưu"
         cancel: "Hủy"
+    comment:
+      title: "Bình luận"
+      post: "Đăng"
+      placeholder: "Viết bình luận về cuốn sách này..."
+      posted_on: "Đăng %{time} trước."
+      no_comment: "Chưa có bình luận nào về cuốn sách này."
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"
+    borrowable: "Có thể mượn"
+    unborrowable: "Không được mượn"
   error:
     less_than_a_book: "Phải mượn ít nhất một quyển sách!"
     not_logged_in: "Bạn chưa đăng nhập!"

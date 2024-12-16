@@ -60,3 +60,15 @@ p "Seeded authors, publishers, genres"
 end
 
 p "Seeded books"
+
+Book.all.each do |book|
+  6.times do
+    Comment.create!(
+      content: Faker::Lorem.sentence,
+      user_id: User.pluck(:id).sample,
+      book_id: book.id
+    )
+  end
+end
+
+p "Seeded comments"

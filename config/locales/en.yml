@@ -49,6 +49,9 @@ en:
       sign_up_here: "here"
     book:
       title: "Book List"
+      author: "Author"
+      genre: "Genre"
+      publisher: "Publisher"
       new: "+ New book"
       table:
         id: "ID"
@@ -92,9 +95,17 @@ en:
         placeholder: "Enter the decline reason"
         submit_btn: "Save"
         cancel: "Cancel"
+    comment:
+      title: "Comments"
+      post: "Post"
+      placeholder: "Write a review about this book..."
+      posted_on: "Posted %{time} ago."
+      no_comment: "There hasn't been any comments yet."
   text:
     logout: "Log out"
     errors: "Errors:"
+    borrowable: "Borrowable"
+    unborrowable: "Unborrowable"
   error:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
