@@ -17,5 +17,6 @@ Rails.application.routes.draw do
       end
     end
     resources :selected_books, only: %i(create destroy)
+    resources :comments, only: %i(create destroy)
   end
 end

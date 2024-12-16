@@ -1,0 +1,6 @@
+<%= turbo_stream.update "comments_section" do %>
+  <%= render partial: "comments/comments_section", locals: {pagy: @pagy, comments: @comments} %>
+<% end %>
+<%= turbo_stream.update "flash" do %>
+  <%= render "shared/flash" %>
+<% end %>

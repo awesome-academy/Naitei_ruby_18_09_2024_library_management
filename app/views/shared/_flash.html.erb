@@ -1,0 +1,7 @@
+<% flash.each do |msg_color, msg| %>
+  <div class="flex items-center justify-center">
+    <div class="bg-<%= msg_color %>-100 border-t-4 border-<%= msg_color %>-500 rounded-b text-<%= msg_color %>-900 px-6 py-3 shadow-md w-full" role="alert">
+      <p class="text-sm"><%= msg %></p>
+    </div>
+  </div>
+<% end %>

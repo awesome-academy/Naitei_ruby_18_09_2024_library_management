@@ -1,8 +1,23 @@
-<div class="flex items-start bg-gray-100 p-4 rounded-md shadow-sm">
+<div class="flex items-start bg-gray-100 p-4 rounded-md shadow-sm relative">
   <%= image_tag Settings.default_avatar.link, alt: Settings.default_avatar.alt, class: "w-8 h-8 rounded-full mr-4" %>
   <div>
-    <p class="font-medium text-blue-800 hover:text-blue-600"><%= link_to comment.user.name, comment.user %></p>
+    <p class="font-medium text-blue-800 hover:text-blue-600">
+      <%= link_to commenter_name(comment), comment.user %>
+    </p>
     <p class="text-gray-600 text-base mt-1"><%= comment.content %></p>
-    <p class="text-xs text-gray-500"><%=t "view.comment.posted_on", time: time_ago_in_words(comment.created_at) %></p>
+    <p class="text-xs text-gray-500">
+      <%= t "view.comment.posted_on", time: time_ago_in_words(comment.created_at) %>
+    </p>
   </div>
+  <% if can_delete_comment? comment %>
+    <%= button_to comment_path(comment), method: :delete, form: {data: {"turbo-confirm": t("view.comment.confirm")}} do %>
+      <%= hidden_field_tag :book_id, @book.id %>
+      <div class="absolute top-0 right-0 p-2 text-red-500 hover:text-red-700 group inline-block">
+        <%= render "shared/icon/x", icon_id: "", icon_class: "w-4 h-4 my-1 text-red-500 fill-none cursor-pointer hover:opacity-70" %>
+        <div class="absolute bg-slate-500 px-3 py-2 max-w-xs w-max right-full -translate-x-1/2 -translate-y-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg">
+          <%= t "view.comment.tooltip" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>

@@ -101,11 +101,14 @@ vi:
       placeholder: "Viết bình luận về cuốn sách này..."
       posted_on: "Đăng %{time} trước."
       no_comment: "Chưa có bình luận nào về cuốn sách này."
+      confirm: "Bạn có chắc chắn muốn xóa bình luận này?"
+      tooltip: "Xóa bình luận"
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"
     borrowable: "Có thể mượn"
     unborrowable: "Không được mượn"
+    you: "Bạn"
   error:
     less_than_a_book: "Phải mượn ít nhất một quyển sách!"
     not_logged_in: "Bạn chưa đăng nhập!"
@@ -127,9 +130,13 @@ vi:
     validate_status_allowed: "Hành động '%{new_status}' không được phép đối với yêu cầu ở trạng thái '%{current_status}'!"
     contain_out_of_stock_books: "Yêu cầu chứa sách đã được mượn hết!"
     request_not_found: "Yêu cầu không hợp lệ!"
+    cant_delete_comment: "Đã có lỗi xảy ra khi xóa bình luận."
+    book_not_found: "Không tìm thấy sách!"
+    not_your_comment: "Bạn chỉ có thể xóa bình luận của mình!"
   success:
     signup: "Sign up successfully!"
     login: "Đăng nhập thành công!"
     request_created: "Tạo yêu cầu thành công! Hãy liên hệ thủ thư để được chấp nhận."
     request_cancelled: "Đã hủy yêu cầu!"
     changed_status: "Trạng thái của yêu cầu đã được cập nhật thành %{new_status}."
+    comment_deleted: "Xóa bình luận thành công!"

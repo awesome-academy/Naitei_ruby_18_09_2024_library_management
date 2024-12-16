@@ -1,0 +1,9 @@
+<%= turbo_stream.update "comment_form" do %>
+  <%= render partial: "form", locals: {book_id: @book.id} %>
+<% end %>
+<%= turbo_stream.update "comments_section" do %>
+  <%= render partial: "comments/comments_section", locals: {pagy: @pagy, comments: @comments} %>
+<% end %>
+<%= turbo_stream.update "flash" do %>
+  <%= render "shared/flash" %>
+<% end %>
