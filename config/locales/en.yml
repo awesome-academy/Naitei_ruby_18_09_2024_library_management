@@ -101,11 +101,14 @@ en:
       placeholder: "Write a review about this book..."
       posted_on: "Posted %{time} ago."
       no_comment: "There hasn't been any comments yet."
+      confirm: "Are you sure to delete this comment?"
+      tooltip: "Delete comment"
   text:
     logout: "Log out"
     errors: "Errors:"
     borrowable: "Borrowable"
     unborrowable: "Unborrowable"
+    you: "You"
   error:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
@@ -127,9 +130,13 @@ en:
     validate_status_allowed: "Action '%{new_status}' is not allowed for a request with status '%{current_status}'!"
     contain_out_of_stock_books: "The request contains out of stock books!"
     request_not_found: "Invalid request!"
+    cant_delete_comment: "There were some errors deleting the comment."
+    book_not_found: "Book not found!"
+    not_your_comment: "You can't only delete your comments!"
   success:
     signup: "Sign up successfully!"
     login: "Login successfully!"
     request_created: "Request created! Contact the librarian for approvement."
     request_cancelled: "Request cancelled!"
     changed_status: "Request status updated to %{new_status}."
+    comment_deleted: "Comment deleted!"

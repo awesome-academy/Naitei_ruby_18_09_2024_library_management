@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  PERMITTED_PARAMS = [:content, :book_id].freeze
+
   belongs_to :user
   belongs_to :book
 

@@ -1,0 +1,8 @@
+<div class="space-y-3 max-h-[410px] overflow-y-auto" id="comments_section">
+  <% if @comments.any? %>
+    <%= render partial: "comments/comment", collection: @comments, as: :comment %>
+  <% else %>
+    <%= t "view.comment.no_comment" %>
+  <% end %>
+</div>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
