@@ -1,0 +1,6 @@
+<%= t("text.hi") + " " + @user.name %>,
+
+<%= t("mail.status_changed.p1") + " " + @status %>
+<%= t("text.click_here") + " " + t("mail.status_changed.p2") + ": " + requests_url %>
+
+<%= t "mail.status_changed.footer", year: Date.current.year %>

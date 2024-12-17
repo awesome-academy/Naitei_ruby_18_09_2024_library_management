@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include ApplicationHelper
 
-  before_action :logged_in?, :load_book
+  before_action :require_login, :load_book
   before_action :load_comment, only: :destroy
 
   def create

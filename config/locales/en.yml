@@ -104,12 +104,20 @@ en:
       no_comment: "There hasn't been any comments yet."
       confirm: "Are you sure to delete this comment?"
       tooltip: "Delete comment"
+  mail:
+    status_changed:
+      title: "Request Status Changed"
+      p1: "Your borrow request has been changed into"
+      p2: "to check the request."
+      footer: "© %{year} VLIB Library Management System"
+      click_here: "Click here"
   text:
     logout: "Log out"
     errors: "Errors:"
     borrowable: "Borrowable"
     unborrowable: "Unborrowable"
     you: "You"
+    hi: "Hi"
   error:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
