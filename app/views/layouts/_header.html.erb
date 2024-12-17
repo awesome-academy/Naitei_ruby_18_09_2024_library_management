@@ -1,6 +1,14 @@
-<header class="top-0 left-0 w-full bg-white shadow-md flex items-center pr-10 py-2 h-16">
-  <%= render "layouts/locale_selector" %>
-  <%= render "layouts/logo" %>
-  <%= render "layouts/search" %>
-  <%= render partial: logged_in? ? "layouts/user_buttons" : "layouts/login_button" %>
+<header class="top-0 left-0 w-full bg-white shadow-md flex flex-col sm:flex-row items-center justify-between px-4 py-2 min-h-16">
+  <div class="w-full sm:w-auto flex items-center justify-between">
+    <%= render "layouts/locale_selector" %>
+    <%= render "layouts/logo" %>
+  </div>
+
+  <div class="w-full sm:w-auto flex-grow mx-4 my-2 sm:my-0">
+    <%= render "layouts/search" %>
+  </div>
+
+  <div class="w-full sm:w-auto flex justify-end">
+    <%= render partial: logged_in? ? "layouts/user_buttons" : "layouts/login_button" %>
+  </div>
 </header>

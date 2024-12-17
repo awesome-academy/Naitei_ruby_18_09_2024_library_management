@@ -11,6 +11,7 @@ module ApplicationHelper
       [t("header.search.dropdown.all"), "all"],
       [t("header.search.dropdown.name"), "name"],
       [t("header.search.dropdown.author"), "author"],
+      [t("header.search.dropdown.genre"), "genre"],
       [t("header.search.dropdown.publisher"), "publisher"]
     ]
   end

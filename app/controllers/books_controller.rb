@@ -24,6 +24,15 @@ class BooksController < ApplicationController
 
   def create; end
 
+  def search
+    @pagy, @books = pagy Book.includes(:author, cover_attachment: :blob)
+                             .search(params[:query],
+                                     params[:search_type].to_sym),
+                         limit: Settings.default_pagination
+    @selected_book = current_user.selected_books.build if current_user.present?
+    render :index
+  end
+
   private
 
   def load_book

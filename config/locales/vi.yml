@@ -6,6 +6,7 @@ vi:
         all: "Tất cả"
         name: "Tên sách"
         author: "Tác giả"
+        genre: "Thể loại"
         publisher: "Nhà xuất bản"
       btn: "Tìm kiếm"
       placeholder: "Tìm..."
