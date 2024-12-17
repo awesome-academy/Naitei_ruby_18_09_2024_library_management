@@ -6,6 +6,7 @@ en:
         all: "All"
         name: "Name"
         author: "Author"
+        genre: "Genre"
         publisher: "Publisher"
       btn: "Search"
       placeholder: "Search..."
