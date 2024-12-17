@@ -2,7 +2,7 @@ class RequestsController < ApplicationController
   include ApplicationHelper
   include RequestsHelper
 
-  before_action :logged_in?
+  before_action :require_login
   before_action :has_unreturned_books?, only: :create
   before_action :load_selected_books, only: :new
   before_action :load_request_to_destroy, :correct_user,
@@ -57,9 +57,7 @@ class RequestsController < ApplicationController
     else
       handle_invalid_destroy_or_handle t "error.invalid_action" and return
     end
-
-    flash[:emerald] = t "success.changed_status", new_status: params[:status]
-    redirect_to all_requests_path, status: :see_other
+    handle_change_status_success
   end
 
   private
@@ -125,7 +123,7 @@ class RequestsController < ApplicationController
   end
 
   def load_request_to_handle
-    @request = Request.includes(:books).find_by(id: params[:id])
+    @request = Request.includes(:books, :borrower).find_by(id: params[:id])
     return if @request
 
     handle_invalid_destroy t "error.request_not_found"
@@ -147,7 +145,7 @@ class RequestsController < ApplicationController
   end
 
   def change_status
-    @request.update!(status: params[:status])
+    @request.update!(status: params[:status], processor: current_user)
   end
 
   def change_book_amount amount
@@ -194,5 +192,14 @@ class RequestsController < ApplicationController
   def handle_invalid_destroy_or_handle message
     flash[:red] = message
     redirect_to request.referer || root_url
+  end
+
+  def handle_change_status_success
+    if @request.borrower.email == Settings.demo_email
+      UserMailer.request_status_changed(@request.borrower, params[:status])
+                .deliver_now
+    end
+    flash[:emerald] = t "success.changed_status", new_status: params[:status]
+    redirect_to all_requests_path, status: :see_other
   end
 end

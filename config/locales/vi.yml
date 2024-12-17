@@ -104,12 +104,20 @@ vi:
       no_comment: "Chưa có bình luận nào về cuốn sách này."
       confirm: "Bạn có chắc chắn muốn xóa bình luận này?"
       tooltip: "Xóa bình luận"
+    mail:
+    status_changed:
+      title: "Trạng Thái Yêu Cầu Đã Thay Đổi"
+      p1: "Yêu cầu của bạn đã được chuyển sang trạng thái"
+      p2: "để kiểm tra yêu cầu"
+      footer: "© %{year} Hệ Thống Quản Lý Thư Viện VLIB"
+      click_here: "Bấm vào đây"
   text:
     logout: "Đăng xuất"
     errors: "Lỗi:"
     borrowable: "Có thể mượn"
     unborrowable: "Không được mượn"
     you: "Bạn"
+    hi: "Chào"
   error:
     less_than_a_book: "Phải mượn ít nhất một quyển sách!"
     not_logged_in: "Bạn chưa đăng nhập!"

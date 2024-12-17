@@ -1,3 +1,4 @@
+app_name: "VLIB"
 author:
   max_length: 30
 book:
@@ -27,6 +28,8 @@ VN_flag:
 EN_flag:
   link: "EN_flag.png"
   alt: "en"
+default_email: "noreply@demomailtrap.com"
+demo_email: "nguyen.the.vu-b@sun-asterisk.com"
 default_pagination: 10
 request:
   allow_amount: 5

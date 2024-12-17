@@ -1,7 +1,7 @@
 class SelectedBooksController < ApplicationController
   include ApplicationHelper
 
-  before_action :logged_in?
+  before_action :require_login
   before_action :correct_user, only: :destroy
 
   def create
