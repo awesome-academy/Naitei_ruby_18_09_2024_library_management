@@ -39,4 +39,14 @@ module RequestsHelper
   def reason reason
     reason || "-"
   end
+
+  def is_processed? request
+    if request.processor.present?
+      link_to request.processor.name,
+              request.processor,
+              class: "text-blue-400 hover:text-blue-300 cursor-pointer"
+    else
+      "-"
+    end
+  end
 end

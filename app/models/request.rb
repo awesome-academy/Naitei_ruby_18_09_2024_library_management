@@ -11,7 +11,7 @@ class Request < ApplicationRecord
   has_many :requested_books, dependent: :destroy
   has_many :books, through: :requested_books
 
-  scope :pending_or_overdue, ->{where(status: [:pending, :overdue])}
+  scope :uncompleted, ->{where(status: [:pending, :borrowing, :overdue])}
   scope :newest, ->{order created_at: :desc}
   scope :not_declined_or_returned, ->{where.not(status: [:declined, :returned])}
   scope :by_status, ->{order status: :asc, created_at: :desc}

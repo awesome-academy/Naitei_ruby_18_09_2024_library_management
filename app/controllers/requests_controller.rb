@@ -86,7 +86,7 @@ class RequestsController < ApplicationController
   end
 
   def has_unreturned_books?
-    return unless current_user.borrow_requests.pending_or_overdue.any?
+    return unless current_user.borrow_requests.uncompleted.any?
 
     handle_invalid t "error.has_unreturned_books"
   end
