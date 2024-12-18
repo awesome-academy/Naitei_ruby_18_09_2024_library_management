@@ -105,6 +105,15 @@ en:
       no_comment: "There hasn't been any comments yet."
       confirm: "Are you sure to delete this comment?"
       tooltip: "Delete comment"
+    author:
+      birthday: "Birthday"
+      biography: "Biography"
+      written_books: "Written books"
+      follow: "Follow"
+      book_in_system: "Books in system"
+      no_bio: "No biography available."
+      no_birthday: "Not specified"
+      no_book: "There haven't been any book of this author in our system yet."
   mail:
     status_changed:
       title: "Request Status Changed"
@@ -143,6 +152,7 @@ en:
     cant_delete_comment: "There were some errors deleting the comment."
     book_not_found: "Book not found!"
     not_your_comment: "You can't only delete your comments!"
+    author_not_exist: "Author doesn't exist!"
   success:
     signup: "Sign up successfully!"
     login: "Login successfully!"
