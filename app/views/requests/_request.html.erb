@@ -3,6 +3,7 @@
     <td class="px-4 py-3"><%= request.id %></td>
     <td class="px-4 py-3"><%= link_to request.borrower.name, request.borrower, class: "text-blue-400 hover:text-blue-300 cursor-pointer" %></td>
     <td class="px-4 py-3"><%= requested_book_names request %></td>
+    <td class="px-4 py-3"><%= is_processed? request %></td>
     <td class="px-4 py-3"><%= request.start_date %></td>
     <td class="px-4 py-3"><%= request.end_date %></td>
     <td class="px-4 py-3"><div class="px-2 py-1 rounded-lg text-white <%= status_class request.status %>"><%= request.status %></div></td>
@@ -65,6 +66,7 @@
   <% else %>
     <td class="px-4 py-3"><%= calculate_index request_counter %></td>
     <td class="px-4 py-3"><%= requested_book_names request %></td>
+    <td class="px-4 py-3"><%= is_processed? request %></td>
     <td class="px-4 py-3"><%= request.start_date %></td>
     <td class="px-4 py-3"><%= request.end_date %></td>
     <td class="px-4 py-3"><div class="px-2 py-1 rounded-lg text-white <%= status_class request.status %>"><%= request.status %></div></td>

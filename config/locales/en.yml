@@ -76,6 +76,7 @@ en:
         request_id: "Request ID"
         request_no: "No."
         borrower: "Borrower"
+        handled_by: "Handled by"
         books: "Books"
         start_date: "Start date"
         end_date: "End date"
