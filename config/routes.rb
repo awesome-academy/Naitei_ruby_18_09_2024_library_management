@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     delete  "/logout", to: "sessions#destroy"
     get     "/cart",   to: "requests#new"
     resources :users
+    resources :authors, only: :show
     resources :books do
       collection do
         get :search, to: "books#search"

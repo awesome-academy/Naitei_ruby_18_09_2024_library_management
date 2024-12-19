@@ -105,6 +105,15 @@ vi:
       no_comment: "Chưa có bình luận nào về cuốn sách này."
       confirm: "Bạn có chắc chắn muốn xóa bình luận này?"
       tooltip: "Xóa bình luận"
+    author:
+      birthday: "Ngày sinh"
+      biography: "Tiểu sử"
+      written_books: "Sách đã viết"
+      follow: "Theo dõi"
+      book_in_system: "Sách trong hệ thống"
+      no_bio: "Tác giả này chưa có tiểu sử."
+      no_birthday: "Không rõ"
+      no_book: "Trong hệ thống của chúng tôi chưa có sách nào của tác giả này."
     mail:
     status_changed:
       title: "Trạng Thái Yêu Cầu Đã Thay Đổi"
@@ -143,6 +152,7 @@ vi:
     cant_delete_comment: "Đã có lỗi xảy ra khi xóa bình luận."
     book_not_found: "Không tìm thấy sách!"
     not_your_comment: "Bạn chỉ có thể xóa bình luận của mình!"
+    author_not_exist: "Tác giả không tồn tại!"
   success:
     signup: "Sign up successfully!"
     login: "Đăng nhập thành công!"
