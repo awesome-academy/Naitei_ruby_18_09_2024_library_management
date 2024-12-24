@@ -13,8 +13,6 @@ image:
   allow_type: "image/jpeg, image/gif, image/png"
 username:
   max_length: 20
-password:
-  min_length: 8
 email:
   format: "\\A[\\w+\\-.]+@[a-z\\d\\-.]+\\.[a-z]+\\z"
   max_length: 256
@@ -34,3 +32,13 @@ default_pagination: 10
 request:
   allow_amount: 5
   max_borrow_days: 30
+devise:
+  stretch:
+    test: 1
+    other: 12
+  password:
+    min_length: 8
+    max_length: 20
+  max_attempts: 5
+  unlock_in: 1
+  reset_password_within: 6

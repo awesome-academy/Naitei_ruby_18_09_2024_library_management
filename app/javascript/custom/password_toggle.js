@@ -3,7 +3,7 @@ document.addEventListener("turbo:load", function() {
   if (toggle){
     toggle.addEventListener("click", function(event) {
       event.preventDefault();
-      let passwordField = document.querySelector("#session_password");
+      let passwordField = document.querySelector("#user_password");
       if (passwordField){
         const type = passwordField.type === "password" ? "text" : "password";
         passwordField.type = type;

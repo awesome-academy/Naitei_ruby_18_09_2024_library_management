@@ -13,6 +13,13 @@ en:
   view:
     profile:
       title: "Profile"
+      delete_account: "Delete account"
+      confirm: "Are you sure to delete your account?"
+      password:
+        note: "(leave blank if you don't want to change it)"
+        min_character: "%{min_character} characters minimum"
+      current_password:
+        note: "(we need your current password to confirm your changes)"
     settings:
       title: "Settings"
     login:

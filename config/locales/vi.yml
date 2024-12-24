@@ -13,6 +13,13 @@ vi:
   view:
     profile:
       title: "Trang cá nhân"
+      delete_account: "Xóa tài khoản"
+      confirm: "Bạn có chắc chắn muốn xóa tài khoản của mình?"
+      password:
+        note: "(để trống nếu bạn không muốn thay đổi mật khẩu)"
+        min_character: "Tối thiểu %{min_character} ký tự"
+      current_password:
+        note: "(chúng tôi cần mật khẩu hiện tại của bạn để xác nhận các thay đổi)"
     settings:
       title: "Cài đặt"
     login:

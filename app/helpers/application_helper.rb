@@ -16,21 +16,11 @@ module ApplicationHelper
     ]
   end
 
-  def logged_in?
-    current_user.present?
-  end
-
-  def current_user
-    return unless user_id = session[:user_id]
-
-    @current_user ||= User.find_by id: user_id
-  end
-
   def require_login
-    return if logged_in?
+    return if user_signed_in?
 
     flash[:red] = t "error.not_logged_in"
-    redirect_to login_path
+    redirect_to new_user_session_path
     false
   end
 end

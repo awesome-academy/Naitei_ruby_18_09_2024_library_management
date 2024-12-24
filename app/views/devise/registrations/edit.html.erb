@@ -1,0 +1,50 @@
+<% provide :title, t("view.profile.title") %>
+<div>
+  <div class="flex flex-column justify-between items-center justify-center">
+    <h3 class="mt-0 text-2xl font-semibold text-gray-800"><%= t "view.profile.title" %></h3>
+    <%= button_to t("view.profile.delete_account"), registration_path(resource_name),
+      data: {turbo_confirm: t("view.profile.confirm")},
+      method: :delete,
+      class: "inline-block px-4 py-2 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+    %>
+  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
+    <%= render "shared/error_messages", object: resource %>
+    <div class="field">
+      <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <div class="field">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <div class="field">
+      <%= f.label :phone, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :phone, autofocus: true, autocomplete: "phone", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500"><%= t "view.profile.password.note" %></p>
+      <%= f.password_field :password, autocomplete: "new-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <% if @minimum_password_length %>
+        <p class="mt-1 text-xs text-gray-500"><%= t "view.profile.password.min_character", min_character: @minimum_password_length %></p>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500"><%= t "view.profile.current_password.note" %></p>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Update", class: "px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+    </div>
+  <% end %>
+</div>

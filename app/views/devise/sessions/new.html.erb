@@ -2,7 +2,7 @@
 <div class="flex flex-col justify-start p-2">
   <h1 class="self-center text-3xl py-4"><%= t "view.login.title" %></h1>
   <div class="max-w-md w-full mx-auto px-6">
-    <%= form_for :session, url: login_path, class: "max-w-md w-full mx-auto px-6", data: {turbo: false} do |f| %>
+    <%= form_for resource, as: resource_name, url: session_path(resource_name), class: "max-w-md w-full mx-auto px-6", data: {turbo: false} do |f| %>
       <%= f.label :email, t("view.login.email.label"), class: "text-gray-800 text-sm mb-2 block" %>
       <div class="relative flex items-center">
         <%= f.email_field :email, required: true, placeholder: t("view.login.email.placeholder"), class: "w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 mb-2 rounded-md outline-blue-600" %>
@@ -27,7 +27,7 @@
 
       <p class="text-gray-800 text-sm mt-4 text-center">
         <%= t "view.login.dont_have_account" %>
-        <%= link_to t("view.login.sign_up_here"), signup_path, class: "text-blue-600 hover:underline whitespace-nowrap font-semibold" %>
+        <%= link_to t("view.login.sign_up_here"), new_user_registration_path, class: "text-blue-600 hover:underline whitespace-nowrap font-semibold" %>
       </p>
     <% end %>
   </div>

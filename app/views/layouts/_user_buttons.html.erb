@@ -27,10 +27,10 @@
       <%= image_tag Settings.default_avatar.link, alt: Settings.default_avatar.alt, class: "h-8 w-8 rounded-full" %>
     </button>
     <div class="absolute right-0 mt-2 w-48 z-50 bg-white border rounded-md shadow-lg hidden group-hover:block" id="drop_down">
-      <%= link_to t("view.profile.title"), current_user, class: "block px-4 py-2 hover:bg-gray-100" %>
+      <%= link_to t("view.profile.title"), edit_user_registration_path, class: "block px-4 py-2 hover:bg-gray-100" %>
       <%= link_to t("view.settings.title"), "/", class: "block px-4 py-2 hover:bg-gray-100" %>
       <%= link_to title, requests_path, class: "block px-4 py-2 hover:bg-gray-100" %>
-      <%= link_to t("text.logout"), logout_path, data: {turbo_method: :delete}, class: "block px-4 py-2 hover:bg-gray-100" %>
+      <%= link_to t("text.logout"), destroy_user_session_path, data: {turbo_method: :delete}, class: "block px-4 py-2 hover:bg-gray-100" %>
     </div>
   </div>
 </div>
