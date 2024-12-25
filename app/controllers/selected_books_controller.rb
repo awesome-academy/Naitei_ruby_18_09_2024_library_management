@@ -1,7 +1,5 @@
 class SelectedBooksController < ApplicationController
-  include ApplicationHelper
-
-  before_action :require_login
+  authorize_resource
   before_action :correct_user, only: :destroy
 
   def create
@@ -26,6 +24,11 @@ class SelectedBooksController < ApplicationController
       render :new, status: :unprocessable_entity
     end
     redirect_to request.referer || root_url
+  end
+
+  rescue_from CanCan::AccessDenied do
+    flash[:red] = t "error.not_logged_in"
+    redirect_to new_user_session_path
   end
 
   private

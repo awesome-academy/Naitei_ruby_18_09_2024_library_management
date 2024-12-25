@@ -1,12 +1,10 @@
 class RequestsController < ApplicationController
-  include ApplicationHelper
   include RequestsHelper
 
-  before_action :require_login
+  authorize_resource
   before_action :has_unreturned_books?, only: :create
   before_action :load_selected_books, only: :new
-  before_action :load_request_to_destroy, :correct_user,
-                :is_pending?, only: :destroy
+  before_action :load_request_to_destroy, :is_pending?, only: :destroy
   before_action :load_request_to_handle, :validate_action_allowed, only: :handle
 
   def index
@@ -60,6 +58,11 @@ class RequestsController < ApplicationController
     handle_change_status_success
   end
 
+  rescue_from CanCan::AccessDenied do
+    flash[:red] = t "error.not_logged_in"
+    redirect_to new_user_session_path
+  end
+
   private
 
   def request_params
@@ -89,12 +92,6 @@ class RequestsController < ApplicationController
     return unless current_user.borrow_requests.uncompleted.any?
 
     handle_invalid t "error.has_unreturned_books"
-  end
-
-  def correct_user
-    return if @request
-
-    handle_invalid_destroy_or_handle t "error.cant_cancel_other_request"
   end
 
   def is_pending?

@@ -1,10 +1,8 @@
 class BooksController < ApplicationController
-  include ApplicationHelper
-
-  before_action :load_book, on: :show
+  load_resource
 
   def index
-    @pagy, @books = pagy Book.includes(:author, cover_attachment: :blob).all,
+    @pagy, @books = pagy @books.includes(:author, cover_attachment: :blob).all,
                          limit: Settings.default_pagination
     return if current_user.blank?
 
@@ -12,7 +10,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @pagy, @comments = pagy Comment.includes(:user).by_book(params[:id]),
+    @pagy, @comments = pagy Comment.includes(:user).by_book(@book.id),
                             limit: Settings.default_pagination
     return if current_user.blank?
 
@@ -20,22 +18,17 @@ class BooksController < ApplicationController
     @comment = current_user.comments.build
   end
 
-  def new; end
-
-  def create; end
-
   def search
-    @pagy, @books = pagy Book.includes(:author, cover_attachment: :blob)
-                             .search(params[:query],
-                                     params[:search_type].to_sym),
+    @pagy, @books = pagy @books.includes(:author, cover_attachment: :blob)
+                               .search(params[:query],
+                                       params[:search_type].to_sym),
                          limit: Settings.default_pagination
     @selected_book = current_user.selected_books.build if current_user.present?
     render :index
   end
 
-  private
-
-  def load_book
-    @book = Book.find_by id: params[:id]
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:red] = t "error.book_not_found"
+    redirect_to request.referer || root_path
   end
 end

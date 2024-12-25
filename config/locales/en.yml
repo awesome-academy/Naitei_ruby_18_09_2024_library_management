@@ -158,7 +158,9 @@ en:
     request_not_found: "Invalid request!"
     cant_delete_comment: "There were some errors deleting the comment."
     book_not_found: "Book not found!"
+    comment_not_found: "Comment not found!"
     not_your_comment: "You can't only delete your comments!"
+    user_not_exist: "User doesn't exist!"
     author_not_exist: "Author doesn't exist!"
   success:
     signup: "Sign up successfully!"

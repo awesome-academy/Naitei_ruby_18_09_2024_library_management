@@ -2,7 +2,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: :create
   before_action :configure_account_update_params, only: :update
 
-  def create; end
+  # rubocop:disable Lint/UselessMethodDefinition
+  def create
+    super
+  end
+  # rubocop:enable Lint/UselessMethodDefinition
 
   def update
     if resource.update_with_password(account_update_params)
