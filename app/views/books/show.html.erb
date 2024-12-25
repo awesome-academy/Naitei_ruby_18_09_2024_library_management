@@ -2,7 +2,7 @@
   <div class="md:w-1/3 flex flex-col items-center ">
     <%= image_tag book_cover(@book), class: "w-64 h-80 object-cover rounded-md shadow-md mb-6" %>
     <h2 class="text-2xl mb-2"><%= @book.name %></h2>
-    <%= render "action", book_id: @book.id if logged_in? %>
+    <%= render "action", book_id: @book.id if user_signed_in? %>
   </div>
 
   <div class="w-0.5 bg-gray-300 mx-4"></div>
@@ -25,9 +25,9 @@
 
     <div>
       <h3 class="text-xl font-bold mb-4"><%= t "view.comment.title" %></h3>
-      <% if logged_in? %>
+      <% if user_signed_in? %>
         <div id="comment_form">
-          <%= render "comments/form", book_id: @book.id if logged_in? %>
+          <%= render "comments/form", book_id: @book.id %>
         </div>
       <% end %>
       <div id="comments_section">

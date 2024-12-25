@@ -9,6 +9,6 @@
   </div>
 
   <div class="w-full sm:w-auto flex justify-end">
-    <%= render partial: logged_in? ? "layouts/user_buttons" : "layouts/login_button" %>
+    <%= render partial: user_signed_in? ? "layouts/user_buttons" : "layouts/login_button" %>
   </div>
 </header>

@@ -16,7 +16,7 @@
           <%= button_to t("view.author.follow"), "#",
               class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors" %>
         <% else %>
-          <%= link_to t("view.author.follow"), login_path,
+          <%= link_to t("view.author.follow"), new_user_session_path,
               class: "block w-full text-center bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors" %>
         <% end %>
       </div>

@@ -18,7 +18,7 @@
           <th class="px-4 py-2 text-sm font-medium w-1/5"><%= t "view.book.table.cover" %></th>
           <th class="px-4 py-2 text-sm font-medium w-1/4"><%= t "view.book.table.author" %></th>
           <th class="px-4 py-2 text-sm font-medium w-1/12"><%= t "view.book.table.in_stock" %></th>
-          <% if logged_in? %>
+          <% if user_signed_in? %>
             <th class="px-4 py-2 text-sm font-medium w-1/10"><%= t "view.book.table.action" %></th>
            <% else %>
             <th class="px-4 py-2 text-sm font-medium w-1/10 hidden"></th>

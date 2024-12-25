@@ -47,10 +47,10 @@ class RequestsController < ApplicationController
   def handle
     case params[:status].to_sym
     when :borrowing, :returned
-      process_accept_or_return_request
+      return unless process_accept_or_return_request
     when :declined
       unless process_decline_request
-        handle_invalid_destroy_or_handle t("error.missing_reason") and return
+        handle_invalid_destroy_or_handle t "error.missing_reason" and return
       end
     when :overdue
       change_status
@@ -169,8 +169,10 @@ class RequestsController < ApplicationController
       change_status
       change_book_amount(params[:status] == "borrowing" ? -1 : 1)
     end
+    true
   rescue ActiveRecord::RecordInvalid => e
-    handle_invalid e.record.errors.full_messages.join(", ")
+    handle_invalid_destroy_or_handle e.record.errors.full_messages.join(", ")
+    false
   end
 
   def process_decline_request

@@ -8,6 +8,7 @@ gem "active_storage_validations"
 gem "bcrypt", "~> 3.1", ">= 3.1.12"
 gem "bootsnap", require: false
 gem "config"
+gem "devise"
 gem "faker"
 gem "figaro"
 gem "importmap-rails"

@@ -6,7 +6,7 @@
   </td>
   <td class="px-4 py-1"><%= book.author.name %></td>
   <td class="px-4 py-1"><%= book.in_stock %></td>
-  <% if logged_in? %>
+  <% if user_signed_in? %>
     <td class="px-4 py-1">
       <%= render "action", book_id: book.id %>
     </td>
