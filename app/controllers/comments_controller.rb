@@ -1,11 +1,10 @@
 class CommentsController < ApplicationController
-  include ApplicationHelper
+  load_and_authorize_resource
 
-  before_action :require_login, :load_book
-  before_action :load_comment, only: :destroy
+  before_action :load_book
 
   def create
-    @comment = current_user.comments.build comment_params
+    @comment.user_id = current_user.id
     unless @comment.save
       flash.now[:red] = @comment.errors.full_messages.to_sentence
     end
@@ -21,6 +20,16 @@ class CommentsController < ApplicationController
     reload_with_turbo
   end
 
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:red] = t "error.comment_not_found"
+    redirect_to request.referer || root_path
+  end
+
+  rescue_from CanCan::AccessDenied do
+    flash[:red] = t "error.not_logged_in"
+    redirect_to new_user_session_path
+  end
+
   private
 
   def comment_params
@@ -32,14 +41,6 @@ class CommentsController < ApplicationController
     return if @book
 
     flash[:red] = t "error.book_not_found"
-    redirect_to request.referer || root_path
-  end
-
-  def load_comment
-    @comment = current_user.comments.find_by id: params[:id]
-    return if @comment
-
-    flash[:red] = t "error.not_your_comment"
     redirect_to request.referer || root_path
   end
 

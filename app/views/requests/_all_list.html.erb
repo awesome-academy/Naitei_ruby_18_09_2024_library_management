@@ -15,7 +15,7 @@
     <%= render partial: "request", collection: @requests, as: :request %>
   <% else %>
       <tr>
-        <td colspan="7" class="text-center text-gray-500 py-4"></td>
+        <td colspan="8" class="text-center text-gray-500 py-4"><%= t "view.requests_list.no_requests_found" %></td>
       </tr>
   <% end %>
 </tbody>

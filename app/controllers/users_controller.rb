@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  def show
-    @user = User.find_by id: params[:id]
-    return if @user
+  load_resource
 
-    flash[:red] = t "error.not_logged_in"
-    redirect_to root_path
+  def show; end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:red] = t "error.user_not_exist"
+    redirect_to request.referer || root_path
   end
 end

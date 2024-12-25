@@ -1,20 +1,18 @@
 class AuthorsController < ApplicationController
-  before_action :load_author
+  load_and_authorize_resource
 
-  def show; end
-
-  private
-
-  def load_author
-    @author = Author.find_by id: params[:id]
-    handle_invalid_author and return unless @author
-
+  def show
     @pagy, @written_books = pagy @author.books.includes(:genre),
                                  limit: Settings.default_pagination
   end
 
-  def handle_invalid_author
+  rescue_from ActiveRecord::RecordNotFound do
     flash[:red] = t "error.author_not_exist"
     redirect_to request.referer || root_path
+  end
+
+  rescue_from CanCan::AccessDenied do
+    flash[:red] = t "error.not_logged_in"
+    redirect_to new_user_session_path
   end
 end

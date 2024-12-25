@@ -158,7 +158,9 @@ vi:
     request_not_found: "Yêu cầu không hợp lệ!"
     cant_delete_comment: "Đã có lỗi xảy ra khi xóa bình luận."
     book_not_found: "Không tìm thấy sách!"
+    comment_not_found: "Không tìm thấy bình luận!"
     not_your_comment: "Bạn chỉ có thể xóa bình luận của mình!"
+    user_not_exist: "Người dùng không tồn tại!"
     author_not_exist: "Tác giả không tồn tại!"
   success:
     signup: "Sign up successfully!"
