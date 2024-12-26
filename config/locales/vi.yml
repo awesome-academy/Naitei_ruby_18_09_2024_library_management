@@ -1,15 +1,5 @@
 vi:
   app_name: "VLIB"
-  header:
-    search:
-      dropdown:
-        all: "Tất cả"
-        name: "Tên sách"
-        author: "Tác giả"
-        genre: "Thể loại"
-        publisher: "Nhà xuất bản"
-      btn: "Tìm kiếm"
-      placeholder: "Tìm..."
   view:
     profile:
       title: "Trang cá nhân"
@@ -56,7 +46,7 @@ vi:
       dont_have_account: "Chưa có tài khoản? Đăng ký"
       sign_up_here: "tại đây"
     book:
-      title: "Danh sách sách"
+      title: "Sách trong hệ thống"
       new: "+ Thêm sách mới"
       author: "Tác giả"
       genre: "Thể loại"
@@ -70,6 +60,23 @@ vi:
         action: "Hành động"
       no_record_found: "Không có sách. Hãy thêm sách mới."
       added_to_cart: "%{book_name} đã được thêm vào giỏ hàng."
+      search:
+        name_or_description: "Tên, mô tả, ..."
+        in_stock:
+          label: "Số lượng"
+          placeholder: "Số lượng"
+        author:
+          label: "Tác giả"
+          placeholder: "Tất cả tác giả"
+        publisher:
+          label: "Nhà xuất bản"
+          placeholder: "Tất cả nhà xuất bản"
+        genre:
+          label: "Thể loại"
+          placeholder: "Tất cả"
+        created_at: "Ngày thêm"
+        or_query: "Truy vấn OR"
+        submit: "Tìm kiếm"
     cart:
       title: "Giỏ Hàng"
       borrow_date: "Ngày mượn"

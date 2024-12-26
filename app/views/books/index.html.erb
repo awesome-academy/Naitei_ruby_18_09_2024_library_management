@@ -2,11 +2,19 @@
 <div class="mx-auto w-full">
   <div class="flex align-center justify-between mb-4">
     <h1 class="text-2xl font-semibold"><%= t "view.book.title" %></h1>
-    <% if current_user&.is_admin? %>
-      <div class="flex justify-end">
-        <%= link_to t("view.book.new"), new_book_path, class: "bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" %>
+    <div class="inline-flex items-center relative">
+      <div class="bg-gray-100 rounded-full flex items-center justify-center w-10 h-10 cursor-pointer hover:opacity-70"
+           id="search_popup_btn"
+      >
+        <%= render "shared/icon/filter", icon_class: "h-5 w-5 text-gray-500" %>
       </div>
-    <% end %>
+      <%= render "search_options" %>
+      <% if current_user&.is_admin? %>
+        <div class="flex justify-end ml-2">
+          <%= link_to t("view.book.new"), "#", class: "bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="overflow-x-auto rounded-lg shadow">
