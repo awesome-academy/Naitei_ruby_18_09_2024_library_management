@@ -1,15 +1,5 @@
 en:
   app_name: "VLIB"
-  header:
-    search:
-      dropdown:
-        all: "All"
-        name: "Name"
-        author: "Author"
-        genre: "Genre"
-        publisher: "Publisher"
-      btn: "Search"
-      placeholder: "Search..."
   view:
     profile:
       title: "Profile"
@@ -70,6 +60,23 @@ en:
         action: "Action"
       no_record_found: "No book found. Please add some books."
       added_to_cart: "%{book_name} has been added to your cart."
+      search:
+        name_or_description: "Name, description, ..."
+        in_stock:
+          label: "Amount"
+          placeholder: "Amount"
+        author:
+          label: "Author"
+          placeholder: "All authors"
+        publisher:
+          label: "Publisher"
+          placeholder: "All publishers"
+        genre:
+          label: "Genre"
+          placeholder: "All"
+        created_at: "Added date"
+        or_query: "OR query"
+        submit: "Search"
     cart:
       title: "My Cart"
       borrow_date: "Borrow date"

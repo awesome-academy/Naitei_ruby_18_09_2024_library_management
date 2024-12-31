@@ -4,10 +4,6 @@
     <%= render "layouts/logo" %>
   </div>
 
-  <div class="w-full sm:w-auto flex-grow mx-4 my-2 sm:my-0">
-    <%= render "layouts/search" %>
-  </div>
-
   <div class="w-full sm:w-auto flex justify-end">
     <%= render partial: user_signed_in? ? "layouts/user_buttons" : "layouts/login_button" %>
   </div>

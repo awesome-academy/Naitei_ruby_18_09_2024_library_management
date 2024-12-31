@@ -11,11 +11,7 @@ Rails.application.routes.draw do
     get     "/cart",   to: "requests#new"
     resources :users, only: :show
     resources :authors, only: :show
-    resources :books do
-      collection do
-        get :search, to: "books#search"
-      end
-    end
+    resources :books, only: %i(index show)
     resources :requests do
       member do
         post :handle
