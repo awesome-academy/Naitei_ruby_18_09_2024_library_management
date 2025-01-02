@@ -5,7 +5,8 @@ class RequestsController < ApplicationController
   before_action :has_unreturned_books?, only: :create
   before_action :load_selected_books, only: :new
   before_action :load_request_to_destroy, :is_pending?, only: :destroy
-  before_action :load_request_to_handle, :validate_action_allowed, only: :handle
+  before_action :load_request_to_handle, :validate_action_allowed,
+                :has_out_of_stock_book?, only: :handle
 
   def index
     @pagy, @requests = if all_requests_accessible?
@@ -52,8 +53,6 @@ class RequestsController < ApplicationController
       end
     when :overdue
       change_status
-    else
-      handle_invalid_destroy_or_handle t "error.invalid_action" and return
     end
     handle_change_status_success
   end
@@ -123,7 +122,7 @@ class RequestsController < ApplicationController
     @request = Request.includes(:books, :borrower).find_by(id: params[:id])
     return if @request
 
-    handle_invalid_destroy t "error.request_not_found"
+    handle_invalid_destroy_or_handle t "error.request_not_found"
   end
 
   def build_book_params selected_books
