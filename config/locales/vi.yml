@@ -176,3 +176,6 @@ vi:
     request_cancelled: "Đã hủy yêu cầu!"
     changed_status: "Trạng thái của yêu cầu đã được cập nhật thành %{new_status}."
     comment_deleted: "Xóa bình luận thành công!"
+    book_created: "Sách đã được tạo thành công!"
+    book_updated: "Sách đã được cập nhật thành công!"
+    book_deleted: "Sách đã được xóa thành công!"

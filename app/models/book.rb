@@ -1,4 +1,7 @@
 class Book < ApplicationRecord
+  PERMITTED_PARAMS = [:name, :description, :in_stock, :borrowable,
+                     :author_id, :publisher_id, :genre_id, :cover].freeze
+
   belongs_to :author
   belongs_to :publisher
   belongs_to :genre
@@ -31,6 +34,9 @@ class Book < ApplicationRecord
   validates :name,
             presence: true,
             length: {maximum: Settings.book.name.max_length}
+  validates :description,
+            presence: true,
+            length: {maximum: Settings.book.description.max_length}
   validates :in_stock,
             presence: true,
             numericality: {only_integer: true,
