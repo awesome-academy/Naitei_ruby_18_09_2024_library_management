@@ -3,6 +3,7 @@ git_source(:github){|repo| "https://github.com/#{repo}.git"}
 
 ruby "3.2.2"
 
+gem "active_model_serializers"
 gem "activestorage"
 gem "active_storage_validations"
 gem "bcrypt", "~> 3.1", ">= 3.1.12"

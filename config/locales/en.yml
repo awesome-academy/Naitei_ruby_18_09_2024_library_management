@@ -176,3 +176,6 @@ en:
     request_cancelled: "Request cancelled!"
     changed_status: "Request status updated to %{new_status}."
     comment_deleted: "Comment deleted!"
+    book_created: "Book created successfully!"
+    book_updated: "Book updated successfully!"
+    book_deleted: "Book deleted successfully!"

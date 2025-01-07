@@ -22,5 +22,11 @@ Rails.application.routes.draw do
     end
     resources :selected_books, only: %i(create destroy)
     resources :comments, only: %i(create destroy)
+
+    namespace :api do
+      namespace :v1 do
+        resources :books, only: %i(index show create update destroy)
+      end
+    end
   end
 end

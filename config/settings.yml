@@ -4,6 +4,8 @@ author:
 book:
   name:
     max_length: 100
+  description:
+    max_length: 1000
   min_in_stock: 0
   default_cover: "DefaultCover.png"
 comment:
