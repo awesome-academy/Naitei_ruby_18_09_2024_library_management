@@ -19,7 +19,7 @@ class Request < ApplicationRecord
   enum status: {pending: 0, borrowing: 1, overdue: 2, declined: 3, returned: 4}
 
   validates :status, inclusion: {in: statuses.keys}, presence: true, on: :handle
-  validates :note, presence: true, on: :handle, if: :want_to_declined?
+  validates :note, presence: true, on: :handle, if: :want_to_decline?
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :start_date_must_not_be_in_the_past,
