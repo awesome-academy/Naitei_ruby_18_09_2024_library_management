@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "RequestsController", type: :request do
   let(:user)          {create(:user)}
-  let(:admin)         {create(:user, email: "admin@gmail.com", phone: "1112223334", is_admin: true)}
+  let(:admin)         {create(:user, email: "admin@gmail.com", phone: "1112223335", is_admin: true)}
   let(:book)          {create(:book, author: create(:author), publisher: create(:publisher), genre: create(:genre))}
   let(:user_request)  {create(:request, borrower: user)}
   let(:admin_request) {create(:request, borrower: admin, status: :borrowing)}
