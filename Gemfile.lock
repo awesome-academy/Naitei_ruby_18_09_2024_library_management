@@ -144,6 +144,8 @@ GEM
       activesupport (>= 5.0.0)
     json (2.6.3)
     jsonapi-renderer (0.2.2)
+    jwt (2.10.1)
+      base64
     language_server-protocol (3.17.0.3)
     loofah (2.21.3)
       crass (~> 1.0.2)
@@ -356,6 +358,7 @@ DEPENDENCIES
   figaro
   importmap-rails
   jbuilder
+  jwt
   mysql2 (~> 0.5)
   pagy
   premailer-rails

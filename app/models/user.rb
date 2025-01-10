@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :rememberable,
          :validatable, :lockable
+
   PERMITTED_PARAMS ||= [:name, :email, :phone,
                         :password, :password_confirmation].freeze
 
@@ -13,8 +14,6 @@ class User < ApplicationRecord
   has_many :carted_books, through: :selected_books, source: :book
   has_many :favorite_books, dependent: :destroy
   has_many :favorited_books, through: :favorite_books, source: :book
-
-  attr_accessor :activation_token
 
   before_save :downcase_email
 

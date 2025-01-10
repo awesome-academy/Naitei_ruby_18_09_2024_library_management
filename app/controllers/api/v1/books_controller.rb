@@ -1,9 +1,12 @@
 class Api::V1::BooksController < ApplicationController
+  require Rails.root.join("lib/json_web_token")
   include BooksHelper
 
-  load_resource # skip authorization to test API
-  skip_before_action :verify_authenticity_token # skip csrf to test API
+  skip_before_action :verify_authenticity_token # skip csrf and use jwt instead
+  before_action :authenticate_user_with_jwt!, only: %i(create update destroy)
+  load_and_authorize_resource
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
+  rescue_from CanCan::AccessDenied, with: :handle_unauthorized
 
   def index
     @q = Book.ransack(search_params, auth_object: user_role)
@@ -71,5 +74,21 @@ class Api::V1::BooksController < ApplicationController
 
   def handle_record_not_found
     render json: {error: t("error.book_not_found")}, status: :not_found
+  end
+
+  def handle_unauthorized
+    render json: {error: t("error.not_authorized")}, status: :unauthorized
+  end
+
+  def authenticate_user_with_jwt!
+    token = JsonWebToken.decode request.headers["Authorization"]
+                                       &.split(" ")
+                                       &.last
+
+    @current_user = User.find_by(id: token[:id]) if token
+  rescue JWT::ExpiredSignature
+    render json: {error: t("error.expired_token")}, status: :unauthorized
+  rescue JWT::DecodeError
+    render json: {error: t("error.invalid_token")}, status: :unauthorized
   end
 end

@@ -146,6 +146,9 @@ en:
     less_than_a_book: "A request must contain at least a book!"
     not_logged_in: "Please login first!"
     wrong_credentials: "Invalid email or password!"
+    invalid_token: "Invalid token."
+    not_authorized: "You are not allowed to do this!"
+    expired_token: "Token has expired!"
     already_in_cart: "%{book_name} has already been added to your cart!"
     cant_delete_selected_book: "Server encountered some error!"
     not_your_selected_book: "You can't remove others' book from cart!"
@@ -172,6 +175,7 @@ en:
   success:
     signup: "Sign up successfully!"
     login: "Login successfully!"
+    logout: "Logged out."
     request_created: "Request created! Contact the librarian for approvement."
     request_cancelled: "Request cancelled!"
     changed_status: "Request status updated to %{new_status}."

@@ -1,15 +1,20 @@
 require "rails_helper"
+require Rails.root.join("lib/json_web_token")
 
 RSpec.describe "Api::V1::Books", type: :request do
-  let(:user)       {create(:user)}
-  let!(:author)    {create(:author)}
-  let!(:publisher) {create(:publisher)}
-  let!(:genre)     {create(:genre)}
-  let!(:book)      {create(:book, author: author, publisher: publisher, genre: genre, in_stock: 2)}
-  let!(:comments)  {create(:comment, user: user, book: book)}
+  let(:user)            {create(:user)}
+  let(:admin)           {create(:user, is_admin: true, email: "admin@gmail.com", phone: "0123456780")}
+  let!(:author)         {create(:author)}
+  let!(:publisher)      {create(:publisher)}
+  let!(:genre)          {create(:genre)}
+  let!(:book)           {create(:book, author: author, publisher: publisher, genre: genre, in_stock: 2)}
+  let!(:comments)       {create(:comment, user: user, book: book)}
+  let(:headers)         {{"Authorization" => "Bearer #{generate_jwt(user)}"}}
+  let(:admin_headers)   {{"Authorization" => "Bearer #{generate_jwt(admin)}"}}
+  let(:expired_headers) {{"Authorization" => "Bearer #{expired_jwt(admin)}"}}
 
   describe "GET /api/v1/books" do
-    context "when not use search params" do
+    context "when no search params are provided" do
       it "returns a list of books" do
         get "/api/v1/books"
 
@@ -28,7 +33,7 @@ RSpec.describe "Api::V1::Books", type: :request do
       end
     end
 
-    context "when use search params" do
+    context "when search params are provided" do
       let!(:book_2) {create(:book, author: author, publisher: publisher, genre: genre, in_stock: 5)}
       let!(:search_params) do
         {
@@ -71,92 +76,167 @@ RSpec.describe "Api::V1::Books", type: :request do
   end
 
   describe "POST /api/v1/books" do
-    context "with valid parameters" do
-      let(:valid_params) do
-        {
-          book: {
-            name: "New Book",
-            description: "A great book",
-            in_stock: 5,
-            borrowable: true,
-            author_id: author.id,
-            publisher_id: publisher.id,
-            genre_id: genre.id
-          }
+    let(:valid_params) do
+      {
+        book: {
+          name: "New Book",
+          description: "A great book",
+          in_stock: 5,
+          borrowable: true,
+          author_id: author.id,
+          publisher_id: publisher.id,
+          genre_id: genre.id
         }
+      }
+    end
+
+    context "when authenticated as admin" do
+      context "with valid params" do
+        it "creates a new book" do
+          expect {
+            post "/api/v1/books", params: valid_params, headers: admin_headers
+          }.to change(Book, :count).by(1)
+
+          expect(response).to have_http_status(:created)
+          expect(json_response["message"]).to eq(I18n.t("success.book_created"))
+        end
       end
 
-      it "creates a new book" do
-        expect {
-          post "/api/v1/books", params: valid_params
-        }.to change(Book, :count).by(1)
-        expect(response).to have_http_status(:created)
-        expect(json_response["message"]).to eq(I18n.t("success.book_created"))
+      context "with invalid params" do
+        let(:invalid_params) do
+          {
+            book: {
+              name: "",
+              description: "A great book",
+              in_stock: 1,
+              borrowable: true,
+              author_id: -1,
+              publisher_id: publisher.id,
+              genre_id: genre.id
+            }
+          }
+        end
+
+        it "does not create a new book and returns errors" do
+          expect {
+            post "/api/v1/books", params: invalid_params, headers: admin_headers
+          }.not_to change(Book, :count)
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(json_response["errors"]).to include("Name can't be blank")
+        end
       end
     end
 
-    context "with invalid parameters" do
-      let(:invalid_params) do
-        {
-          book: {
-            name: "",
-            description: "A great book"
-          }
-        }
-      end
+    context "when authenticated as user" do
+      before {post "/api/v1/books", params: valid_params, headers: headers}
 
-      it "does not create a new book and returns errors" do
-        expect {
-          post "/api/v1/books", params: invalid_params
-        }.not_to change(Book, :count)
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(json_response["errors"]).to include("Name can't be blank")
-      end
+      include_examples "when authenticated as user"
+    end
+
+    context "when provided with invalid token" do
+      before {post "/api/v1/books", params: valid_params, headers: {"Authorization" => "Bearer invalid.jwt"}}
+
+      include_examples "when provided with invalid token"
+    end
+
+    context "when token has expired" do
+      before {post "/api/v1/books", params: valid_params, headers: expired_headers}
+
+      include_examples "when token has expired"
     end
   end
 
-  describe "PATCH/PUT /api/v1/books/:id" do
-    context "with valid parameters" do
-      let(:update_params) do
-        {
-          book: {name: "Updated Name"}
-        }
+  describe "PATCH /api/v1/books/:id" do
+    let(:update_params) do
+      {
+        book: {name: "Updated Name"}
+      }
+    end
+
+    context "when authenticated as admin" do
+      context "with valid params" do
+        it "updates the book details" do
+          patch "/api/v1/books/#{book.id}", params: update_params, headers: admin_headers
+          expect(response).to have_http_status(:ok)
+          expect(json_response["message"]).to eq(I18n.t("success.book_updated"))
+          expect(book.reload.name).to eq("Updated Name")
+        end
       end
 
-      it "updates the book details" do
-        patch "/api/v1/books/#{book.id}", params: update_params
-        expect(response).to have_http_status(:ok)
-        expect(json_response["message"]).to eq(I18n.t("success.book_updated"))
-        expect(book.reload.name).to eq("Updated Name")
+      context "with invalid params" do
+        let(:invalid_params) do
+          {
+            book: {name: ""}
+          }
+        end
+
+        it "does not update the book and returns errors" do
+          patch "/api/v1/books/#{book.id}", params: invalid_params, headers: admin_headers
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(json_response["errors"]).to include("Name can't be blank")
+        end
       end
     end
 
-    context "with invalid parameters" do
-      let(:invalid_params) do
-        {
-          book: {name: ""}
-        }
-      end
+    context "when authenticated as user" do
+      before {patch "/api/v1/books/#{book.id}", params: update_params, headers: headers}
 
-      it "does not update the book and returns errors" do
-        patch "/api/v1/books/#{book.id}", params: invalid_params
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(json_response["errors"]).to include("Name can't be blank")
-      end
+      include_examples "when authenticated as user"
+    end
+
+    context "when provided with invalid token" do
+      before {patch "/api/v1/books/#{book.id}", params: update_params, headers: {"Authorization" => "Bearer invalid.jwt"}}
+
+      include_examples "when provided with invalid token"
+    end
+
+    context "when token has expired" do
+      before {patch "/api/v1/books/#{book.id}", params: update_params, headers: expired_headers}
+
+      include_examples "when token has expired"
     end
   end
 
   describe "DELETE /api/v1/books/:id" do
-    it "deletes the book" do
-      expect {
-        delete "/api/v1/books/#{book.id}"
-      }.to change(Book, :count).by(-1)
-      expect(response).to have_http_status(:ok)
-      expect(json_response["message"]).to eq(I18n.t("success.book_deleted"))
+    context "when authenticated as admin" do
+      it "deletes the book" do
+        expect {
+          delete "/api/v1/books/#{book.id}", headers: admin_headers
+        }.to change(Book, :count).by(-1)
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response["message"]).to eq(I18n.t("success.book_deleted"))
+      end
+    end
+
+    context "when authenticated as user" do
+      before {delete "/api/v1/books/#{book.id}", headers: headers}
+
+      include_examples "when authenticated as user"
+    end
+
+    context "when provided with invalid token" do
+      before {delete "/api/v1/books/#{book.id}", headers: {"Authorization" => "Bearer invalid.jwt"}}
+
+      include_examples "when provided with invalid token"
+    end
+
+    context "when token has expired" do
+      before {delete "/api/v1/books/#{book.id}", headers: expired_headers}
+
+      include_examples "when token has expired"
     end
   end
 
   def json_response
     JSON.parse(response.body)
+  end
+
+  def generate_jwt user
+    JsonWebToken.encode(id: user.id)
+  end
+
+  def expired_jwt user
+    JsonWebToken.encode({id: user.id}, Time.current - 1)
   end
 end
