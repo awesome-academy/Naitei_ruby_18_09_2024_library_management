@@ -45,3 +45,4 @@ devise:
   unlock_in: 1
   reset_password_within: 6
 jwt_default_exp: 12
+default_shard: 1

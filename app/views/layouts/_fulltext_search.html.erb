@@ -1,0 +1,15 @@
+<div class="relative w-[500px] max-w-[500px]" data-controller="autocomplete">
+  <%= form_with url: search_books_path, method: :get, local: true, class: "flex items-center" do |f| %>
+    <%= f.text_field :query,
+      value: params[:query],
+      placeholder: t("fulltext_search.placeholder"),
+      class: "w-full pl-4 pr-12 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+      id: "search_bar" %>
+
+    <div id="styled_overlay" class="absolute left-0 top-0 w-full pl-4 pr-12 py-2 pt-[11px] text-black pointer-events-none z-0"></div>
+
+    <button type="submit" class="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-blue-500">
+      <%= render "shared/icon/search", icon_class: "h-5 w-5" %>
+    </button>
+  <% end %>
+</div>

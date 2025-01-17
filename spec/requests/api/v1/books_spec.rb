@@ -13,6 +13,12 @@ RSpec.describe "Api::V1::Books", type: :request do
   let(:admin_headers)   {{"Authorization" => "Bearer #{generate_jwt(admin)}"}}
   let(:expired_headers) {{"Authorization" => "Bearer #{expired_jwt(admin)}"}}
 
+  before do
+    allow(Book.__elasticsearch__).to receive(:create_index!).and_return(true)
+    allow(Book.__elasticsearch__).to receive(:import).and_return(true)
+    allow(Book.__elasticsearch__).to receive(:refresh_index!).and_return(true)
+  end
+
   describe "GET /api/v1/books" do
     context "when no search params are provided" do
       it "returns a list of books" do

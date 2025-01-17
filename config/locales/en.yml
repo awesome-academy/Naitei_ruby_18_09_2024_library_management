@@ -1,5 +1,8 @@
 en:
   app_name: "VLIB"
+  fulltext_search:
+    placeholder: "Find by book name, description, author, ..."
+    search_btn: "Search"
   view:
     profile:
       title: "Profile"

@@ -1,4 +1,7 @@
 class Book < ApplicationRecord
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks unless Rails.env.test?
+
   PERMITTED_PARAMS = [:name, :description, :in_stock, :borrowable,
                      :author_id, :publisher_id, :genre_id, :cover].freeze
 
@@ -11,6 +14,18 @@ class Book < ApplicationRecord
   has_many :selected_books, dependent: :destroy
   has_many :requested_books, dependent: :destroy
   has_many :favorite_books, dependent: :destroy
+
+  settings index: {number_of_shards: Settings.default_shard} do
+    mappings dynamic: false do
+      indexes :name, type: :text, analyzer: "english" do
+        indexes :autocomplete,
+                analyzer: "autocomplete",
+                search_analyzer: "standard"
+      end
+      indexes :description, type: :text
+      indexes :author_name, type: :text
+    end
+  end
 
   ransack_alias :book_search, :name_or_description
 
@@ -64,6 +79,71 @@ class Book < ApplicationRecord
     def ransackable_associations _auth_object = nil
       %w(author publisher genre)
     end
+
+    def elasticsearch_search query
+      return nil if query.blank?
+
+      search(
+        {
+          query: {
+            bool: {
+              should: [
+                {match: {name: {query:, boost: 3, fuzziness: "AUTO"}}},
+                {match: {description: {query:, boost: 2, fuzziness: "AUTO"}}},
+                {match: {author_name: {query:, boost: 2, fuzziness: "AUTO"}}}
+              ]
+            }
+          },
+          highlight: {
+            pre_tags: ["<strong>"],
+            post_tags: ["</strong>"],
+            fields: {
+              name: {},
+              description: {},
+              author_name: {}
+            }
+          }
+        }
+      )
+    end
+
+    def autocomplete term
+      __elasticsearch__.search(
+        {
+          query: {
+            multi_match: {
+              query: term,
+              fields: ["name^2", "author_name"],
+              type: "phrase_prefix"
+            }
+          },
+          size: 1,
+          _source: %w(id name author_name),
+          highlight: {
+            fields: {
+              name: {},
+              author_name: {}
+            }
+          }
+        }
+      )
+    end
+  end
+
+  def as_indexed_json _options = {}
+    {
+      name:,
+      description:,
+      author_name: author&.name
+    }
+  end
+
+  def highlight_view highlight
+    {
+      name: highlight[:name]&.first || name,
+      description: highlight[:description]&.first || description,
+      author_name: highlight[:author_name]&.first || author&.name
+    }
   end
 
   private
