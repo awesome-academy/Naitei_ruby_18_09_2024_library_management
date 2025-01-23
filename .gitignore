@@ -71,3 +71,4 @@ config/application.yml
 /app/assets/builds
 /Procfile.dev
 /public/assets/
+.env

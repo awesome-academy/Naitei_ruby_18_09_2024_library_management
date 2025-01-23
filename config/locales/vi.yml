@@ -1,5 +1,8 @@
 vi:
   app_name: "VLIB"
+  fulltext_search:
+    placeholder: "Tìm theo tên sách, mô tả, tác giả, ..."
+    search_btn: "Tìm kiếm"
   view:
     profile:
       title: "Trang cá nhân"

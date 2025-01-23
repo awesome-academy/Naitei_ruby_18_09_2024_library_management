@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize user
-    can :read, Book
+    can [:read, :search], Book
     can :read, Comment
     can :show, User
     return if user.blank?
