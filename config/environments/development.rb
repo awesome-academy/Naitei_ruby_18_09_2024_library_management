@@ -45,4 +45,5 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
   config.assets.quiet = true
   config.web_console.permissions = "172.18.0.0/16"
+  config.active_job.queue_adapter = :sidekiq
 end

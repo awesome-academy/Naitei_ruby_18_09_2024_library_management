@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|vi/ do
     root       "books#index"
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
     end
     resources :selected_books, only: %i(create destroy)
     resources :comments, only: %i(create destroy)
+    mount Sidekiq::Web => "/sidekiq"
 
     namespace :api do
       namespace :v1 do

@@ -308,10 +308,14 @@ RSpec.describe "RequestsController", type: :request do
       let(:demo_user) {create(:user, email: Settings.demo_email, phone: "0563396000")}
       let(:demo_request) {create(:request, borrower: demo_user)}
 
-      it "sends email when status changes" do
+      before do
+        ActiveJob::Base.queue_adapter = :test
+      end
+
+      it "enqueues an email job when status changes" do
         expect {
           post handle_request_path(locale: I18n.locale, id: demo_request.id), params: {status: "borrowing"}
-        }.to change {ActionMailer::Base.deliveries.count}.by(1)
+        }.to have_enqueued_job(SendEmailJob).with(demo_request.borrower.id, "borrowing")
       end
     end
 

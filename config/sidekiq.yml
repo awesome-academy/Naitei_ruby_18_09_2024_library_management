@@ -1,0 +1,4 @@
+:concurrency: <%= Settings.sidekiq_concurrency %>
+:queues:
+  - default
+  - mailers

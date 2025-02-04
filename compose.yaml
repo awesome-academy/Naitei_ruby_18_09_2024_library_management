@@ -15,9 +15,12 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       ELASTICSEARCH_URL: ${ELASTICSEARCH_URL}
+      REDIS_URL: ${REDIS_URL}
     depends_on:
       - db
       - elasticsearch
+      - redis
+      - sidekiq
     stdin_open: true
     tty: true
 
@@ -47,6 +50,31 @@ services:
         hard: -1
     ports:
       - "9200:9200"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  sidekiq:
+    container_name: sidekiq
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["sidekiq"]
+    depends_on:
+      - redis
+      - db
+    environment:
+      RAILS_ENV: development
+      DATABASE_HOST: db
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      REDIS_URL: ${REDIS_URL}
+    volumes:
+      - .:/app
 
 volumes:
   db_data:
