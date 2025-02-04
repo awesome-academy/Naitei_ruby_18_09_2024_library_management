@@ -194,8 +194,7 @@ class RequestsController < ApplicationController
 
   def handle_change_status_success
     if @request.borrower.email == Settings.demo_email
-      UserMailer.request_status_changed(@request.borrower, params[:status])
-                .deliver_now
+      SendEmailJob.perform_later @request.borrower.id, params[:status]
     end
     flash[:emerald] = t "success.changed_status", new_status: params[:status]
     redirect_to all_requests_path, status: :see_other

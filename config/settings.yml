@@ -46,3 +46,4 @@ devise:
   reset_password_within: 6
 jwt_default_exp: 12
 default_shard: 1
+sidekiq_concurrency: 5
