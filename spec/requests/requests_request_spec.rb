@@ -107,31 +107,35 @@ RSpec.describe "RequestsController", type: :request do
           }
         end
 
-        it "creates a new request" do
-          create(:selected_book, user: user, book: book)
+        context "when the CreateRequestService call is successful" do
+          before do
+            service = instance_double(CreateRequestService, call: true, errors: [])
+            allow(CreateRequestService).to receive(:new)
+              .with(user, kind_of(ActionController::Parameters))
+              .and_return(service)
+          end
 
-          expect {
-            post requests_path, params: valid_params
-          }.to change(Request, :count).by(1)
-
-          expect(response).to redirect_to(root_path)
-          expect(flash[:emerald]).to eq(I18n.t("success.request_created"))
+          it "sets a success flash message and redirects to root_path with status see_other (303)" do
+            post requests_path, params: { request: valid_params }
+            expect(flash[:emerald]).to eq(I18n.t("success.request_created"))
+            expect(response).to redirect_to(root_path)
+            expect(response.status).to eq(303)
+          end
         end
 
-        it "deletes selected_books after creating request" do
-          selected_book = create(:selected_book, user: user, book: book)
+        context "when the CreateRequestService call fails" do
+          before do
+            service = instance_double(CreateRequestService, call: false, errors: ["Something went wrong"])
+            allow(CreateRequestService).to receive(:new)
+              .with(user, kind_of(ActionController::Parameters))
+              .and_return(service)
+          end
 
-          expect {
-            post requests_path, params: valid_params
-          }.to change(SelectedBook, :count).by(-1)
-        end
-
-        it "creates requested_books after creating request" do
-          selected_book = create(:selected_book, user: user, book: book)
-
-          expect {
-            post requests_path, params: valid_params
-          }.to change(RequestedBook, :count).by(1)
+          it "renders the flash.now error and a 422 status" do
+            post requests_path, params: { request: valid_params }
+            expect(flash.now[:red]).to eq("Something went wrong")
+            expect(response.status).to eq(422)
+          end
         end
       end
 
@@ -234,118 +238,59 @@ RSpec.describe "RequestsController", type: :request do
   end
 
   describe "POST /requests/:id/handle" do
-    let(:request_with_books) {create(:request, :with_books)}
+    let(:request_with_books) { create(:request, :with_books) }
+    let(:status_param) { "borrowing" }
+    let(:note_param) { "Note for request" }
 
-    before {sign_in admin}
+    before { sign_in admin }
 
-    context "when accepting request" do
-      it "changes status to borrowing and updates book stock" do
-        current_in_stock = request_with_books.books.first.in_stock
-        post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: {status: "borrowing"}
-
-        request_with_books.reload
-        expect(request_with_books.status).to eq("borrowing")
-        expect(request_with_books.books.first.in_stock).to eq(current_in_stock - 1)
-        expect(flash[:emerald]).to eq(I18n.t("success.changed_status", new_status: "borrowing"))
-      end
-    end
-
-    context "when returning request" do
-      let(:borrowing_request) {create(:request, :with_books, status: :borrowing)}
-
-      it "changes status to returned and updates book stock" do
-        current_in_stock = borrowing_request.books.first.in_stock
-        post handle_request_path(locale: I18n.locale, id: borrowing_request.id), params: {status: "returned"}
-
-        borrowing_request.reload
-        expect(borrowing_request.status).to eq("returned")
-        expect(borrowing_request.books.first.in_stock).to eq(current_in_stock + 1)
-      end
-    end
-
-    context "when declining request" do
-      it "requires a note" do
-        post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: {status: "declined"}
-
-        expect(flash[:red]).to eq(I18n.t("error.missing_reason"))
-      end
-
-      it "declines with valid note" do
-        post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: {status: "declined", note: "Unavailable"}
-
-        request_with_books.reload
-        expect(request_with_books.status).to eq("declined")
-        expect(request_with_books.note).to eq("Unavailable")
-      end
-    end
-
-    context "when marking as overdue" do
-      let(:borrowing_request) {create(:request, :with_books, status: :borrowing)}
-
-      it "changes status to overdue" do
-        post handle_request_path(locale: I18n.locale, id: borrowing_request.id), params: {status: "overdue"}
-
-        borrowing_request.reload
-        expect(borrowing_request.status).to eq("overdue")
-      end
-    end
-
-    context "when transaction fails" do
-      before {allow_any_instance_of(RequestsController).to receive(:change_status).and_raise(ActiveRecord::RecordInvalid, request_with_books)}
-
-      it "sets flash with the error message and redirects to referer or root url" do
-        error_message = "Something is wrong"
-        allow(request_with_books.errors).to receive(:full_messages).and_return([error_message])
-
-        post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: { status: "borrowing" }
-
-        expect(flash[:red]).to eq(error_message)
-        expect(response).to redirect_to(request.referer || root_url)
-      end
-    end
-
-    context "with demo user" do
-      let(:demo_user) {create(:user, email: Settings.demo_email, phone: "0563396000")}
-      let(:demo_request) {create(:request, borrower: demo_user)}
-
+    context "when the request exists" do
       before do
-        ActiveJob::Base.queue_adapter = :test
+        allow(Request).to receive_message_chain(:includes, :find_by)
+          .with(id: request_with_books.id.to_s)
+          .and_return(request_with_books)
       end
 
-      it "enqueues an email job when status changes" do
-        expect {
-          post handle_request_path(locale: I18n.locale, id: demo_request.id), params: {status: "borrowing"}
-        }.to have_enqueued_job(SendEmailJob).with(demo_request.borrower.id, "borrowing")
+      context "when the HandleRequestService call is successful" do
+        before do
+          service = instance_double(HandleRequestService, call: true, errors: [])
+          allow(HandleRequestService).to receive(:new)
+            .with(admin, request_with_books, status_param, note_param)
+            .and_return(service)
+        end
+
+        it "sets a success flash with status see_other (303)" do
+          post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: { status: status_param, note: note_param }
+          expect(flash[:emerald]).to eq(I18n.t("success.changed_status", new_status: status_param))
+          expect(response.status).to eq(303)
+        end
+      end
+
+      context "when the HandleRequestService call fails" do
+        before do
+          service = instance_double(HandleRequestService, call: false, errors: ["Failed to update"])
+          allow(HandleRequestService).to receive(:new)
+            .with(admin, request_with_books, status_param, note_param)
+            .and_return(service)
+        end
+
+        it "sets an error flash" do
+          post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: {status: status_param, note: note_param}
+          expect(flash[:red]).to eq("Failed to update")
+        end
       end
     end
 
-    context "with invalid status transition" do
-      it "prevents invalid status change" do
-        returned_request = create(:request, status: :returned)
-        post handle_request_path(locale: I18n.locale, id: returned_request.id), params: {status: "borrowing"}
-
-        expect(flash[:red]).to include(I18n.t("error.validate_status_allowed", new_status: "borrowing", current_status: "returned"))
+    context "when the request does not exist" do
+      before do
+        allow(Request).to receive_message_chain(:includes, :find_by)
+          .with(id: "non-existent")
+          .and_return(nil)
       end
-    end
 
-    context "with non-existent request" do
-      it "handles gracefully" do
-        post handle_request_path(locale: I18n.locale, id: -1), params: {status: "borrowing"}
-
+      it "sets an error flash" do
+        post handle_request_path(locale: I18n.locale, id: "non-existent"), params: {status: status_param, note: note_param}
         expect(flash[:red]).to eq(I18n.t("error.request_not_found"))
-      end
-    end
-
-    context "with request contains out of stock book" do
-      let!(:request_with_books) {create(:request, :with_books)}
-
-      before {request_with_books.books.first.update(in_stock: 0)}
-
-      it "prevents changing request status" do
-        post handle_request_path(locale: I18n.locale, id: request_with_books.id), params: {status: "borrowing"}
-
-        expect(flash[:red]).to eq(I18n.t("error.contain_out_of_stock_books"))
-        expect(request_with_books.reload.status).not_to eq("borrowing")
       end
     end
   end

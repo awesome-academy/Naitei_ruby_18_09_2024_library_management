@@ -7,7 +7,7 @@ FactoryBot.define do
 
     trait :with_books do
       after(:create) do |request|
-        book = create(:book, author: create(:author), publisher: create(:publisher), genre: create(:genre))
+        book = create(:book, author: create(:author), publisher: create(:publisher), genre: create(:genre), in_stock: 3)
         create(:requested_book, request: request, book: book)
       end
     end
